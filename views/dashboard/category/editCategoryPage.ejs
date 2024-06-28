@@ -1,0 +1,52 @@
+<section class="section">
+  <div class="section-header">
+    <h1>Edit Category</h1>
+  </div>
+  <div class="section-body card">
+
+    <form method="post" id="yourFormID" action="/admin/editCategory" enctype="multipart/form-data">
+      <div class="card-body">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" name="title" value="<%- categoryInfo?.title%>" class="form-control" required="" />
+          <input type="hidden" name="_id" value="<%- categoryInfo?._id%>" />
+        </div>
+
+      </div>
+      <div class="card-footer text-right">
+        <button type="submit" class="btn btn-primary">Update</button>
+        <button class="btn btn-secondary" onclick="history.back()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  productimg.onchange = (evt) => {
+    const [file] = productimg.files;
+    if (file) {
+      blah.src = URL.createObjectURL(file);
+      console.log(blah);
+    }
+  };
+</script>
+
+<script>
+  $('#yourFormID').validate({
+      rules: {
+        "title": {
+            required: true,
+        }
+      },
+      messages: {
+        "title": {
+            required: "Category Name field is required",
+            minlength: "Category Name field must contain at least {0} characters",
+        }
+      },
+      // submitHandler: function (form) { // for demo
+      //       alert('valid form');  // for demo
+      //       return false;  // for demo
+      //   }
+    });
+</script>

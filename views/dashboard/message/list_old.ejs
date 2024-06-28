@@ -1,0 +1,550 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<style>
+    body{
+    background-color: #f4f7f6;
+    margin-top:20px;
+}
+.card {
+    background: #fff;
+    transition: .5s;
+    border: 0;
+    margin-bottom: 30px;
+    border-radius: .55rem;
+    position: relative;
+    width: 100%;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+}
+.chat-app .people-list {
+    width: 280px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    z-index: 7
+}
+
+.chat-app .chat {
+    margin-left: 280px;
+    border-left: 1px solid #eaeaea
+}
+
+.people-list {
+    -moz-transition: .5s;
+    -o-transition: .5s;
+    -webkit-transition: .5s;
+    transition: .5s
+}
+
+.people-list .chat-list li {
+    padding: 10px 15px;
+    list-style: none;
+    border-radius: 3px
+}
+
+.people-list .chat-list li:hover {
+    background: #efefef;
+    cursor: pointer
+}
+
+.people-list .chat-list li.active {
+    background: #efefef
+}
+
+.people-list .chat-list li .name {
+    font-size: 15px
+}
+
+.people-list .chat-list img {
+    width: 45px;
+    border-radius: 50%
+}
+
+.people-list img {
+    float: left;
+    border-radius: 50%
+}
+
+.people-list .about {
+    float: left;
+    padding-left: 8px
+}
+
+.people-list .status {
+    color: #999;
+    font-size: 13px
+}
+
+.chat .chat-header {
+    padding: 15px 20px;
+    border-bottom: 2px solid #f4f7f6
+}
+
+.chat .chat-header img {
+    float: left;
+    border-radius: 40px;
+    width: 40px
+}
+
+.chat .chat-header .chat-about {
+    float: left;
+    padding-left: 10px
+}
+
+.chat .chat-history {
+    padding: 20px;
+    border-bottom: 2px solid #fff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 400px;
+    max-height: 550px;
+    position: relative;
+}
+
+.chat .chat-history ul {
+    padding: 0
+}
+
+.chat .chat-history ul li {
+    list-style: none;
+    margin-bottom: 30px
+}
+
+.chat .chat-history ul li:last-child {
+    margin-bottom: 0px
+}
+
+.chat .chat-history .message-data {
+    margin-bottom: 15px
+}
+
+.chat .chat-history .message-data img {
+    border-radius: 40px;
+    width: 40px
+}
+
+.chat .chat-history .message-data-time {
+    color: #434651;
+    padding-left: 6px
+}
+
+.chat .chat-history .message {
+    color: #444;
+    padding: 18px 20px;
+    line-height: 26px;
+    font-size: 16px;
+    border-radius: 7px;
+    display: inline-block;
+    position: relative
+}
+
+.chat .chat-history .message:after {
+    bottom: 100%;
+    left: 7%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #fff;
+    border-width: 10px;
+    margin-left: -10px
+}
+
+.chat .chat-history .my-message {
+    background: #efefef
+}
+
+.chat .chat-history .my-message:after {
+    bottom: 100%;
+    left: 30px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #efefef;
+    border-width: 10px;
+    margin-left: -10px
+}
+
+.chat .chat-history .other-message {
+    background: #e8f1f3;
+    text-align: right
+}
+
+.chat .chat-history .other-message:after {
+    border-bottom-color: #e8f1f3;
+    left: 93%
+}
+
+.chat .chat-message {
+    padding: 20px
+}
+
+.online,
+.offline,
+.me {
+    margin-right: 2px;
+    font-size: 8px;
+    vertical-align: middle
+}
+
+.online {
+    color: #86c541
+}
+
+.offline {
+    color: #e47297
+}
+
+.me {
+    color: #1d8ecd
+}
+
+.float-right {
+    float: right
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0
+}
+#time {
+    margin-left: auto;
+    white-space: nowrap;
+}
+.chat_down{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 35px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-size: 20px;
+    transform:translateX(-50%) ;
+    color: #333;
+    z-index: 3;
+}
+
+@media only screen and (max-width: 767px) {
+    .chat-app .people-list {
+        height: 465px;
+        width: 100%;
+        overflow-x: auto;
+        background: #fff;
+        left: -400px;
+        display: none
+    }
+    .chat-app .people-list.open {
+        left: 0
+    }
+    .chat-app .chat {
+        margin: 0
+    }
+    .chat-app .chat .chat-header {
+        border-radius: 0.55rem 0.55rem 0 0
+    }
+    .chat-app .chat-history {
+        height: 300px;
+        overflow-x: auto
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .chat-app .chat-list {
+        height: 650px;
+        overflow-x: auto
+    }
+    .chat-app .chat-history {
+        height: 600px;
+        overflow-x: auto
+    }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
+    .chat-app .chat-list {
+        height: 480px;
+        overflow-x: auto
+    }
+    .chat-app .chat-history {
+        height: calc(100vh - 350px);
+        overflow-x: auto
+    }
+}
+</style>
+
+<div class="container">
+<div class="row clearfix">
+    <div class="col-lg-12">
+        <div class="card chat-app">
+            <div id="plist" class="people-list">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <!-- <span class="input-group-text"><i class="fa fa-search"></i></span> -->
+                    </div>
+                    <!-- <input type="text" class="form-control" placeholder="Search..."> -->
+                </div>
+                <div class="get_message_list" id="listing_ul">
+                  
+                </div>
+              
+            </div>
+            <div class="chat">
+                <div class="chat-header clearfix">
+                    <div class="row">
+                        <div class="col-lg-6 user_name">
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                                <!-- <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar"> -->
+                            </a>
+                            <!-- <div class="chat-about">
+                                <h6 class="m-b-0">Aiden Chavez</h6>
+                                <small>Last seen: 2 hours ago</small>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-history" id="message_list">
+                   
+                  <a href=""  class="chat_down d-none"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+                </div>
+                <div class="chat-message clearfix type_msg">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.3/socket.io.js"></script>
+<script>
+        let isScrolling = false;
+        function scrollToBottom() {
+            if (!isScrolling) {
+                isScrolling = true;
+
+                $("#message_list").animate({ 
+                scrollTop: $("#message_list")[0].scrollHeight 
+                }, 1000, function() {
+                // Animation complete, set the flag to false
+                isScrolling = false;
+            });
+            }
+        }
+        const scrollToBottomBtn = $(".chat_down");
+        const messageList = $("#message_list")[0];
+
+        // Show/hide scroll to bottom button based on scroll position
+        $(messageList).scroll(function () {
+          const isAtBottom = messageList.scrollHeight - messageList.scrollTop === messageList.clientHeight;
+          scrollToBottomBtn.toggle(!isAtBottom);
+        });
+
+        // Scroll to the bottom when button is clicked
+        scrollToBottomBtn.click(function () {
+          $(messageList).animate({
+            scrollTop: messageList.scrollHeight
+          }, 1000);
+          return false;
+        });
+
+        // Trigger initial check to show/hide button
+        $(messageList).trigger("scroll");
+
+        // Scroll to the bottom on the first load
+        setTimeout(function () {
+          $(messageList).animate({
+            scrollTop: messageList.scrollHeight
+          }, 1000);
+        }, 50); // Adjust the delay as needed
+    
+
+        let host_name = window.location.hostname;
+        let url = `http://${host_name}:4060/`
+        let socket = io(url)
+        let adminId = '<%=adminData._id%>'
+        console.log("Admin",adminId);
+        let data={
+            userId:adminId,
+            type:0
+        }
+        socket.emit("connect_user",data)
+        socket.on("connect_listener",data => {
+        });
+        let sendData = {
+            senderId : adminId
+        }
+        socket.emit("get_message_list",sendData);
+        socket.on("get_message_list",response =>{
+            // console.log(response,">>>>>>>>>response>>>>>>>>>>>>");
+
+            let html = ``;
+            let role 
+            let a,name
+            for(let i=0;i<response.length;i++){
+                console.log(response[i].receiverId,">>>>>>>>>response[i].receiverId");
+                a = response[i]?.receiverId?.role
+                role=a==1?"subAdmin":a==2?"Patient":"Doctor"
+                // console.log("response[i].receiverId._id",response[i]);
+                if(response[i]?.receiverId?._id != adminId){
+                    name = response[i].receiverId?.firstName+' '+response[i].receiverId?.lastName
+                }else{
+                    name = response[i].senderId?.firstName+' '+response[i].senderId?.lastName
+                }
+                html += `
+                <ul class="list-unstyled chat-list mt-2 mb-0" >
+                    <li class="clearfix" id="${response[i]?._id}" onclick=getMessage('${response[i]?.senderId?._id}','${response[i]?.receiverId?._id}')>
+                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                        <div class="about">
+                            <div class="name">${name}</div>
+                            <div class="status">${role}</div>
+                        </div>
+                    </li>
+                </ul>
+                `
+            }
+
+            $(".get_message_list").append(html);
+        });
+        function getMessage(senderId,receiverId){
+            let getData={
+                senderId:senderId,
+                receiverId:receiverId
+            }
+            
+            scrollToBottom();
+            socket.emit("get_messages",getData)
+            socket.on("get_messages",result=>{
+                // console.log("resu;lt=========>",result);
+                scrollToBottom();
+                let html1 = ''
+                let name = ''
+                let role 
+                let a
+                if(result.senderDetails?.senderId?._id == adminId){
+                    a = result?.senderDetails?.receiverId?.role
+                    name = result.senderDetails?.receiverId?.firstName+' '+result.senderDetails?.receiverId?.lastName
+                    role=a==1?"subAdmin":a==2?"Patient":"Doctor"
+                  
+                }else{
+                    a = result?.senderDetails?.senderId?.role
+                    role=a==1?"subAdmin":a==2?"Patient":"Doctor"
+                    name = result.senderDetails.senderId?.firstName+' '+result.senderDetails.senderId?.lastName
+                }
+                html1 += `
+                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                <h6 class="m-b-0">${name}</h6>
+                <small>${role}</small>`
+                $(".user_name").html(html1)
+                let html2=''
+                for(let i=0;i<result.getAllOldMessage.length;i++){
+                    const createdAtDate = new Date(result.getAllOldMessage[i].updatedAt);
+                    const hours = createdAtDate.getHours();
+                    const minutes = createdAtDate.getMinutes();
+                    const period = hours >= 12 ? 'PM' : 'AM';
+
+                    const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${period}`;
+
+                    const dayNames = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
+                    const dayName = dayNames[createdAtDate.getDay()];
+                    const options = { month: 'long', day: 'numeric' };
+                    const formattedDate = createdAtDate.toLocaleString('en-US', options);
+                    const formattedYear = createdAtDate.getFullYear();
+                    // console.log("result.getAllOldMessage[i].senderId",result.getAllOldMessage[i].senderId);
+                    if(result.getAllOldMessage[i].senderId==adminId){
+                        html2+=`
+                        <ul class="m-b-0">
+                        <li class="clearfix">
+                            <div class="message-data text-end">
+                                <span class="message-data-time" id="time">${formattedTime} | ${formattedDate} ${formattedYear}</span>
+                                <!-- <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar"> -->
+                            </div>
+                            <div class="message other-message float-right"> ${result.getAllOldMessage[i].message} </div>
+                        </li>
+                    </ul>
+                    `
+                    }else{
+                        html2+=`
+                        <ul class="m-b-0">
+                        <li class="clearfix">
+                            <div class="message-data">
+                                <span class="message-data-time">${result.getAllOldMessage[i].createdAt}</span>
+                                <div class="message my-message">${result.getAllOldMessage[i].message}</div>                                    
+                            </div>
+                        </li>                               
+                       
+                    </ul>
+                        `
+                    }
+                    $(".chat-history").html(html2);
+                }
+            })
+
+
+            $(".type_msg").html(`<div class="input-group mb-0">
+                <input id="msginput" type="text" class="form-control" placeholder="Enter text here..." onkeydown="handleKeyPress(event, '${senderId}', '${receiverId}')">                                    
+                <div class="input-group-prepend">
+                    <button class="input-group-text" onclick="sendMessage('${senderId}', '${receiverId}')"><i class="fa fa-send"></i></button>
+                </div>
+                </div>`)
+            
+        }
+        
+
+    function handleKeyPress(event, sender, receiver) {
+        if (event.key === "Enter") {
+        sendMessage(sender, receiver);
+        event.preventDefault();
+        $('.message_list').scrollTop($('.message_list > .chat').height())
+        }
+        scrollToBottom();
+    }  
+    
+    function sendMessage(senderId,receiverId) {
+        let msgInputs = document.getElementById("msginput");
+        msgInput= msgInputs.value
+        
+    if (msgInput.trim() !== '') {
+      data = {
+        receiverId: receiverId!=adminId?receiverId:senderId,
+        senderId: adminId,
+        type: 0,
+        message: msgInput
+      };
+
+      socket.emit("send_message", data);
+      console.log(data,"dataaaaaaaaaaaaaaa");
+
+        let get_data = {
+            receiverId: receiverId!=adminId?receiverId:senderId,
+            senderId: adminId,
+        }
+      msgInputs.value = ''; // Clear the message input field
+    //   console.log("get_data",get_data);
+    socket.on("send_message", (response) => {
+        console.log("response",response);
+        // let id=response._id.toString()
+        // console.log("id",id);
+        // const test = document.getElementById(id);
+        // console.log("testy",test);
+        // // Insert before existing child:
+        // const list = document.getElementById("listing_ul");
+        // list.insertBefore(test,list.children[0]);
+        scrollToBottom();
+        socket.emit("get_messages", get_data); 
+        // socket.emit("user_constant_list", sender); 
+      });
+    }
+    }
+        
+</script>

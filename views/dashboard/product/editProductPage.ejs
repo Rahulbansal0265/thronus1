@@ -1,0 +1,153 @@
+<section class="bs-validation">
+  <div class="row">
+
+    <div class="col-md-12 col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Edit Product</h4>
+        </div>
+        <div class="card-body">
+          <form id="jquery-val-form" method="post" action="/admin/editProduct" enctype="multipart/form-data">
+            <div class="mb-1">
+              <label class="form-label" for="produto">Produto</label>
+              <input type="text" class="form-control" id="produto" value="<%= data?.produto%>" name="produto">
+              <input type="hidden" value="<%= data?._id%>" name="id" class="form-control"/>
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="cbd_mg">CBD mg/ml</label>
+              <input type="text" class="form-control" id="cbd_mg" name="cbd_mg" value="<%= data?.cbd_mg%>">
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="thc_mg">THC mg/ml</label>
+              <input type="text" id="thc_mg" name="thc_mg" value="<%= data?.thc_mg%>" class="form-control">
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="total_cbd">Total CBD (mg)</label>
+              <input type="text" id="total_cbd" name="total_cbd" value="<%= data?.total_cbd%>" class="form-control">
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="total_thc">Total THC (mg)</label>
+              <input type="text" id="total_thc" name="total_thc" value="<%= data?.total_thc%>" class="form-control">
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="investimento">Investimento(USD $)</label>
+              <input type="number" id="investimento" name="investimento" value="<%= data?.investimento%>" class="form-control">
+            </div>
+
+          <div class="mb-1">
+            <label for="customFile" class="form-label">Image </label>
+            <input class="form-control" type="file" id="customFile" name="image" multiple>
+          </div>
+          <div class="row my-2">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+            <div class="edit_img">
+              <img class="" id="blah" src="<%= data?.image ? data?.image  : '/assets/noimages.png'%>" alt="your image"/>
+              <!-- <button class="delete-image-btn" onclick="deleteImg('<%= data._id %>', '<%= data?.image %>')" data-index="">&times;</button> -->
+          </div>
+          </div>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary waves-effect waves-float waves-light" name="submit" value="Submit">Update</button>
+        <button class="btn btn-secondary" onclick="history.back()">Cancel</button>
+
+      </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /jQuery Validation -->
+  </div>
+</section>
+<script>
+  $('#jquery-val-form').validate({
+    rules: {
+      "title": {
+          required: true,
+      },
+      "manufacturer": {
+          required: true,
+      },
+      "saltComposition": {
+          required: true,
+      },
+      "saltSynonymus": {
+          required: true,
+      },
+      "storage": {
+          required: true,
+      },
+      "description": {
+          required: true,
+      },
+      // "image": {
+      //     required: true,
+      // },
+    },
+    messages: {
+      "title": {
+          required: "Title field is required",
+          minlength: "Title field must contain at least {0} characters",
+      },
+      "manufacturer": {
+          required: "Manufacturer field is required",
+          minlength: "Manufacturer field must contain at least {0} characters",
+      },
+      "saltComposition": {
+          required: "Salt Composition field is required",
+          minlength: "Salt Composition field must contain at least {0} characters",
+      },
+      "saltSynonymus": {
+          required: "Salt Synonymus field is required",
+          minlength: "Salt Synonymus field must contain at least {0} characters",
+      },
+      "storage": {
+          required: "Storage field is required",
+          minlength: "Storage field must contain at least {0} characters",
+      },
+      "description": {
+          required: "Description field is required",
+          minlength: "Description field must contain at least {0} characters",
+      },
+      // "image": {
+      //     required: "Image field is required",
+      //     minlength: "Image field must contain at least {0} characters",
+      // }
+    },
+    // submitHandler: function (form) { // for demo
+    //       alert('valid form');  // for demo
+    //       return false;  // for demo
+    //   }
+  });
+
+</script>
+<script>
+  customFile.onchange = (evt) => {
+    const [file] = customFile.files;
+    if (file) {
+      blah.src = URL.createObjectURL(file);
+    }
+  };
+</script>
+
+<script>
+  function deleteImg(id, imageName) {
+      // alert("ID: " + id + ", Image Name: " + imageName);
+      
+      $.ajax({
+          type: 'POST',
+          url: '/admin/deleteProductImg',
+          data: {
+              id: id,
+              imageName: imageName
+          }, 
+          success: function(data) {
+              console.log("Object", data); 
+              window.location.reload();
+          },
+          error: function(xhr, status, error) {
+              console.error(xhr.responseText); 
+          }
+      });
+  }
+  </script>
+  

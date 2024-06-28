@@ -1,0 +1,106 @@
+<!-- Main Content -->
+<div class="section">
+  <div class="section-header">
+    <h1>Profile Update</h1>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col-md-12">
+    <div class="card-body bg-white rounded-4 shadow">
+      <form id="jquery-val-form" action="/subadmin/updateProfile" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" name="firstName" value="<%= adminData?.firstName%>" onkeydown="return /[a-z]/,' ',i.test(event.key)" class="form-control" placeholder="Please Enter Name" />
+          <input type="hidden" name="id" value="<%= adminData?._id%>" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" name="lastName" value="<%= adminData?.lastName%>" onkeydown="return /[a-z]/,' ',i.test(event.key)" class="form-control" placeholder="Please Enter Name" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="Please Enter Email" value="<%= adminData?.email%>" class="form-control" readonly/>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="phoneNumber" name="phoneNumber" placeholder="0123456789" value="<%= adminData?.phoneNumber%>" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>Image</label>
+          <input type="file" id="productimg" name="image" class="form-control" />
+          <img id="blah" class="my-2" src="<%= adminData?.image ? adminData?.image : '/assets/noimages.png' %>" alt="" height="100" width="100">
+        </div>
+        <!-- <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" />
+          </div> -->
+        <button type="submit" class="btn btn-icon icon-left  btn-success">Update Profile</button>
+        <div class="btn btn-icon icon-left ml-5">
+          <a href="/subadmin/changePassword" class="btn btn-info">Change Password</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  productImg.onchange = (evt) => {
+    const [file] = productImg.files;
+    if (file) {
+      blah.src = URL.createObjectURL(file);
+    }
+  };
+</script>
+<!-- main content End -->
+
+<script>
+  $('#jquery-val-form').validate({
+    rules: {
+      "firstName": {
+          required: true,
+      },
+      "lastName": {
+          required: true,
+      },
+      "email": {
+          required: true,
+      },
+      "phoneNumber": {
+          required: true,
+          minlength:10,
+          maxlength:15
+      }
+    },
+    messages: {
+      "firstName": {
+          required: "First Name field is required",
+          minlength: "First Name field must contain at least {0} characters",
+      },
+      "lastName": {
+          required: "Last Name field is required",
+          minlength: "Last Name field must contain at least {0} characters",
+      },
+      "email": {
+          required: "Email field is required",
+          minlength: "Email field must contain at least {0} characters",
+      },
+      "phoneNumber": {
+          required: "Phone Number field is required",
+          minlength: "Phone Number field must contain at least {0} characters",
+      }
+    },
+   
+  });
+
+</script>
+
+<script>
+  $("#mobile").keypress(function(e) {
+    var arr = [];
+    var kk = e.which;
+
+    for (i = 48; i < 58; i++) arr.push(i);
+
+    if (!(arr.indexOf(kk) >= 0)) e.preventDefault();
+  });
+</script>

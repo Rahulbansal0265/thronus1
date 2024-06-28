@@ -1,0 +1,135 @@
+<section class="app-user-list">
+
+    <!-- list section start -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Prescription</h3>
+      </div>
+      <div class="card-datatable table-responsive pt-0">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+          <table id="myTable" class="display">
+            <thead>
+              <tr>
+                <th>S no.</th>
+                <th>Doctor Name</th>
+                <th>Priscription Title</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Note</th>
+                <th>Image</th>
+                <!-- <th>Status</th> -->
+                <th>Assigned</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <% if(result.length> 0 ){ %>
+              <tbody>
+            <% result.forEach((data,i)=>{%>
+              <tr>
+                <td><%= i+1%></td>
+                <!-- <td><%= data?.doctorId?.firstName%></td>  -->
+                <td><%= data?.doctorId?.firstName%></td>
+                <td><%= data?.title%></td>
+                <td><%= data?.email%></td>
+                <td><%= data?.countryCode%></td>
+                <td><%= data?.note.replace(/<\/?[^>]+(>|$)/g, "").replace(/&nbsp;/g, " ").substring(0,20) + "..."%></td>
+                <td> <img class="" id="blah" src="<%= data?.image ? data?.image : '/assets/noimages.png' %>" alt="your image" width="70" height="70" />
+                </td> 
+                  <td>
+                    <% if (data.doctorId.AssignedSubAdminId) { %>
+                        <% const assignedSubAdminId = data.doctorId.AssignedSubAdminId.toString(); %>
+                        <% const assignedSubAdmin = get_all_sub_admin.find(subAdmin => subAdmin._id.toString() === assignedSubAdminId); %>
+                        <% if (assignedSubAdmin) { %>
+                          <%= assignedSubAdmin.firstName %>
+                        <% } %>
+                      <% } else { %>
+                        <% if (get_all_sub_admin.length > 0) { %>
+                          <select name="sub_admin_id" onchange="getval(this);" data-patient-id="<%= data?.doctorId?._id %>">
+                            <% for (let i in get_all_sub_admin) { %>
+                              <option value="<%= get_all_sub_admin[i]._id %>"><%= get_all_sub_admin[i].firstName %></option>
+                            <% } %>
+                          </select>
+                        <% } %>
+                      <% } %>
+                  </td>
+                        
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light" data-bs-toggle="dropdown" aria-expanded="false">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="12" cy="5" r="1"></circle>
+                        <circle cx="12" cy="19" r="1"></circle>
+                      </svg>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item d-flex align-items-center" href="/admin/prescriptionViewDoctor/<%=data._id%>">
+                        <i class="ph ph-eye me-50"></i>
+                        <span>View</span>
+                      </a>
+                    </div>
+                  </div>
+                </td>
+               
+              </tr>
+              
+              <%})%>
+            </tbody>
+            <%}else{%>
+            <tr class="odd">
+              <td valign="top" colspan="6" class="dataTables_empty">No data available in
+                table</td>
+            </tr>
+            <%}%>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- list section end -->
+  </section>
+  <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable();
+    });
+
+    function getval(select)
+    {
+      var doctorId = select.getAttribute('data-patient-id');
+      // alert(patientId);
+        $.ajax({
+          type: 'POST',
+          url: '/admin/assignSubAdmin/doctor',
+          data: {
+              sub_admin_id : select.value,
+              doctor_id: doctorId
+          }, 
+          success: function(data) {
+              console.log("Object", data); 
+              window.location.reload();
+          },
+          error: function(xhr, status, error) {
+              console.error(xhr.responseText); 
+          }
+      });
+    }
+  </script>
+  
+    <!-- main content End -->
+    <!-- <script src="../assets/js/myScripts.js"></script> -->
+    <!-- <script>
+      imgInp.onchange = (evt) => {
+        const [file] = imgInp.files;
+        if (file) {
+          blah.src = URL.createObjectURL(file);
+        }
+      };
+    </script> -->
+    <% if(msg !='' ) { %>
+        <script>
+          toastr.success("<%= msg %>")
+        </script>
+    <% } %>
+  
+  
+  
+     

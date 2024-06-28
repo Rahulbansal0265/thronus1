@@ -1,0 +1,100 @@
+<section class="app-user-list">
+
+    <!-- list section start -->
+    <div class="card">
+      <div class="card-header gap-2">
+        <h3 class="card-title me-auto">Prescription</h3>
+        <a href="/subadmin/prescription/0" class="btn btn-success text-left"> All</a>
+        <a href="/subadmin/prescription/1" class="btn btn-warning text-left"> Uploaded By Doctor</a>
+        <a href="/subadmin/prescription/2" class="btn btn-secondary text-left"> Uploaded By Patient</a>
+      </div>
+      <div class="card-datatable table-responsive pt-0">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+          <table id="myTable" class="display">
+            <thead>
+              <tr>
+                <th>S no.</th>
+                <th>Uploaded By</th>
+                <th>Patient Name</th>
+                <th>Note</th>
+                <th>Image</th>
+                <!-- <th>Status</th> -->
+                <!-- <th>Assigned</th> -->
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <% if(result.length> 0 ){ %>
+              <tbody>
+                <% result.forEach((newData,i)=>{%>
+                  <tr>
+                    <td><%= i+1%></td>
+                    <td><%= newData.patientId? newData.patientId.firstName : newData.doctorId.firstName%></td>
+                    <td><%= newData.patientId? newData.patientId.firstName : newData.patientName%></td>
+                    <td style="word-break: break-word;"><%= newData?.note%></td>
+                    <td> <img class="" id="blah" src="<%= newData?.image ? newData?.image : '/assets/noimages.png' %>" alt="your image" width="70" height="70" />
+                    </td> 
+                    <td>
+                      <div class="dropdown">
+                        <button type="button" class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light" data-bs-toggle="dropdown" aria-expanded="false">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="12" cy="5" r="1"></circle>
+                            <circle cx="12" cy="19" r="1"></circle>
+                          </svg>
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item d-flex align-items-center" href="/subadmin/prescriptionView/<%=newData._id%>">
+                            <i class="ph ph-eye me-50"></i>
+                            <span>View</span>
+                          </a>
+                        </div>
+                      </div>
+                    </td>
+                   
+                  </tr>
+                <%})%>
+            </tbody>
+            <%}else{%>
+            <tr class="odd">
+              <td valign="top" colspan="6" class="dataTables_empty">No data available in
+                table</td>
+            </tr>
+            <%}%>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- list section end -->
+  </section>
+  <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable();
+    });
+
+    // function getval(select)
+    // {
+    //   var patientId = select.getAttribute('data-patient-id');
+    //   // alert(patientId);
+    //     $.ajax({
+    //       type: 'POST',
+    //       url: '/admin/assignSubAdmin',
+    //       data: {
+    //           sub_admin_id : select.value,
+    //           Patient_id: patientId
+    //       }, 
+    //       success: function(data) {
+    //           console.log("Object", data); 
+    //           window.location.reload();
+    //       },
+    //       error: function(xhr, status, error) {
+    //           console.error(xhr.responseText); 
+    //       }
+    //   });
+    // }
+  </script>
+  
+    
+  
+  
+  
+     

@@ -1,0 +1,41 @@
+<section class="app-user-view">
+    <div class="app-user-view">
+      <div class="user-info-wrapper">
+        <div class="row">
+          <!-- User Card starts-->
+          <div class="col-xl-12 col-lg-12 col-md-12">
+            <div class="card user-card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 col-lg-12 mt-2 mt-xl-0 ms-auto text-start">
+                    <button type="button" class="border-0 bg-transparent text-secondary  fs-1" onclick="history.back()"><i class="ph-duotone ph-arrow-circle-left"></i></button>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                    <div class="user-avatar-section">
+                      <div class="d-flex justify-content-start">
+                        <div class="d-flex flex-column ms-1">
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Note </h4>
+                            <span class="card-text"><%= result?.note%> </span>
+                          </div>
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Image </h4>
+                              <img class="img-fluid rounded" src="<%= result?.image %>" width="350" alt="User avatar"/>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+  
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+          </div>  
+  
+        </div>
+      </div>
+    </div>
+  
+  </section>

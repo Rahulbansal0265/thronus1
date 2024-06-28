@@ -1,0 +1,295 @@
+<section class="section">
+   <div class="section-header">
+    <h1>Doctor's Info</h1>
+  </div>
+
+  <div class="section-body">
+    <div class="col-12 col-sm-5 col-lg-12">
+      <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <div class="row">
+          <div class="col-md-4">
+            <div class="profile-img">
+              <img
+                src="/images/userImg/<%= doctorInfo.image%>"
+                height="225px" width="225"
+              />
+              <!-- <div class="file btn btn-lg btn-primary">
+            Change Photo
+            <input type="file" name="file" />
+          </div> -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="profile-head">
+              <h5><%= doctorInfo.name%> ( <%= doctorInfo.sub_category.name%> )</h5>
+              <!-- <h5 > </h5> -->
+              
+          <ul class="nav nav-pills mt-5" id="myTab3" role="tablist">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                id="home-tab3"
+                data-toggle="tab"
+                href="#home3"
+                role="tab"
+                aria-controls="home"
+                aria-selected="false"
+                >Doctor's Info</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                id="profile-tab3"
+                data-toggle="tab"
+                href="#profile3"
+                role="tab"
+                aria-controls="profile"
+                aria-selected="false"
+                >History</a
+              >
+            </li>
+            
+          </ul>
+          <div class="tab-content" id="myTabContent2">
+            <div
+              class="tab-pane fade active show"
+              id="home3"
+              role="tabpanel"
+              aria-labelledby="home-tab3"
+            >
+              <div class="row">
+                  <div class="col-md-6">
+                    <label>Name</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p><%= doctorInfo.name%></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Email</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p><%= doctorInfo.email%></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Phone</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p><%= doctorInfo.mobile%></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Profession</label>
+                  </div>
+                  <div class="col-md-6">
+                    <%if(doctorInfo.type == "3"){%>
+                    <p>Doctor</p>
+                    <%}else if(doctorInfo.type == "2"){%>
+                    <p>Worker</p>
+                    <% }else if(doctorInfo.type == "1"){%>
+                    <p>Petient</p>
+                    <%}%>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Status</label>
+                  </div>
+                 <div class="col-md-6">
+                        <% if(doctorInfo.status=="1" ){%>
+                          <div class="badge badge-success">Active</div>
+
+                          <%}else{%>
+                            <div class="badge badge-danger">Blocked</div>
+                            <%}%>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>Verification</label>
+                        </div>
+                        <div class="col-md-6">
+                          <% if(doctorInfo.isVerify=="0" ){%>
+                            <div class="badge badge-danger">Disapproved</div>
+                            <%}else if(doctorInfo.isVerify=="1" ){%>
+                              <div class="badge badge-warning">Pending</div>
+                              <%}else {%>
+                                <div class="badge badge-success">Approved</div>
+
+                                <%}%>
+                        </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Gender</label>
+                  </div>
+                  <div class="col-md-6">
+                    <% if(doctorInfo.gender=="0"){%>
+                    <p>Male</p>
+                    <%}else if(doctorInfo.gender=="1"){%>
+                    <p>Female</p>
+                    <%}else {%>
+                    <p>Other</p>
+                    <%}%>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Date of Birth</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p><%= moment(doctorInfo.birth_date).format("YYYY-MM-DD")%></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Ratings</label>
+                  </div>
+                  <div class="col-md-6">
+                    <% if(avgRating==1) { %> ★☆☆☆☆ <% } else if(avgRating==2)
+                  { %> ★★☆☆☆ <% } else if(avgRating==3) { %> ★★★☆☆ <% } else
+                  if(avgRating==4) { %> ★★★★☆ <% } else if(avgRating==0 ||
+                  avgRating=='') { %> No Rating <% } else if(avgRating==5) {
+                  %> ★★★★★ <% } %>
+                  </div>
+                </div>
+            </div>
+
+
+            <div
+              class="tab-pane fade"
+              id="profile3"
+              role="tabpanel"
+              aria-labelledby="profile-tab3"
+            >
+             
+
+             <table
+            id="doctorTable"
+            class="table table-striped table-bordered"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Patient Name</th>
+                <th>Date</th>
+               
+                <th>Doctor's Prescription</th>
+                <th>Disease</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+              <% pastBookings.forEach((data,i)=>{%>
+              <td><%= i+1%></td>
+              <!-- <td><%= data.patient_detail.name%></td> -->
+              <td><a style="text-decoration:none" href="/admin/patientDetail/<%= data.patient_detail.id %>" ><%= data.patient_detail.name%></a></td>
+              <td><%=  moment(data.appointmentTime).format("YYYY-MM-DD HH:mm:ss")%></td>
+              <td><a style="text-decoration:none" href="javascript:void(0)" onclick='openModal1("Prescription",`<%= data.doctorNote%>`)'>read</a></td>
+              <td> <a style="text-decoration:none" href="javascript:void(0)" onclick='openModal("Disease","<%= data.patientNote%>")'>read </a></td>
+</tr>
+              <%})%>
+            </tbody>
+          </table>
+
+
+
+
+
+
+
+
+
+
+
+                <!-- <div class="row">
+                  <div class="col-md-6">
+                    <label>Experience</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>Expert</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Hourly Rate</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>10$/hr</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Total Projects</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>230</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>English Level</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>Expert</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Availability</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>6 months</p>
+                  </div>
+                </div> -->
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="fire-modal-2"
+    aria-modal="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_header" >Modal Title</h5> <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"> <span aria-hidden="true">×</span> </button>
+            </div>
+            <div class="modal-body" id="modal_body"> Modal body text goes here.</div>
+        </div>
+    </div>
+</div>   
+
+
+
+<script>
+  function openModal(modal_header, modal_body) {
+  var replacableString = modal_body.replace(/<>/g, "'");
+  $("#modal_header").html(modal_header);
+  $("#modal_body").html(replacableString);
+  $("#fire-modal-2").modal("show");
+}
+
+ function openModal1(modal_header, modal_body) {
+  var replacableString = modal_body.replace(/<>/g, "'");
+  $("#modal_header").html(modal_header);
+  $("#modal_body").html(replacableString);
+  $("#fire-modal-2").modal("show");
+}
+</script>

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="/chat-assets/images/logo.png">
+  <title>Chat</title>
+  <!-- bootstrap 5.3 -->
+  <link rel="stylesheet" href="/chat-assets/css/bootstrap.min.css">
+  <!-- font-awesome icon file -->
+  <script src="https://kit.fontawesome.com/9afdb21cde.js" crossorigin="anonymous"></script>
+  <!-- bootstrap icon -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- chat style.css -->
+  <link rel="newest stylesheet" href="/chat-assets/css/chat.css">
+
+</head>
+
+<body onload="autoScroll()">
+
+  <div class="container">
+    <div class="row gx-0 mx-0 w-100 " id="mobi">
+      <!-- \ col end -->
+      <div class="col-lg-12 col-md-7 ps-md-0 ">
+        <div class="pt-0">
+          <div class="rigth_box_chat container px-md-0">
+
+            <div class="chat_head">
+              <div class="user_img me-0">
+                <% if(subAdminData.image){%>
+                <img src="<%=subAdminData.image%>" alt="">
+                <%}else{%>
+                <img src="/chat-assets/images/chat1.png" alt="">
+                <%}%>
+              </div>
+              <h5 class="mb-0"><%=subAdminData.firstName +' ' + subAdminData.lastName %></h5>
+              </div>
+
+              <div class="chat_body pt-md-5 pt-3" id="chat-down">
+
+              </div>
+
+              <div class="chat_footer">
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- \ col end -->
+      </div>
+      <!-- \ row end -->
+    </div>
+
+    <!-- bootstrap js -->
+    <script src="/chat-assets/js/popper.min.js"></script>
+    <script src="/chat-assets/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.3/socket.io.js"></script>
+    <script>
+      // toggle script any where
+      function add_class(id, addcl) {
+        var element = document.getElementById(id);
+        element.classList.toggle(addcl);
+      }
+      // scroll down chat body
+      function autoScroll() {
+
+        document.getElementById('chat-down').scrollBy(0, 500);
+
+      }
+      let host_name = window.location.hostname;
+      let url = `http://${host_name}:4060/`
+      let socket = io(url)
+      let adminId = '<%=adminData._id%>'
+      let subAdminId = '<%=subadminId%>'
+      // console.log("adminId", adminId);
+      let data = {
+        userId: adminId,
+        type: 0
+      }
+      socket.emit("connect_user", data)
+      socket.on("connect_listener", data => {});
+      let getData = {
+        senderId: adminId,
+        receiverId: subAdminId
+      }
+      socket.emit("get_messages", getData)
+      scrollToBottom()
+      socket.on("get_messages", result => {
+
+        for (let i = 0; i < result.getAllOldMessage.length; i++) {
+          const createdAtDate = new Date(result.getAllOldMessage[i].updatedAt);
+          const hours = createdAtDate.getHours();
+          const minutes = createdAtDate.getMinutes();
+          const period = hours >= 12 ? 'PM' : 'AM';
+          const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${period}`;
+          const dayNames = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
+          const dayName = dayNames[createdAtDate.getDay()];
+          const options = {
+            month: 'long',
+            day: 'numeric'
+          };
+          const formattedDate = createdAtDate.toLocaleString('en-US', options);
+          const formattedYear = createdAtDate.getFullYear();
+          // console.log("result.getAllOldMessage[i].senderId",result.getAllOldMessage[i]);
+          let html1 = ''
+          if (result.getAllOldMessage[i].senderId == adminId) {
+            html1 += `
+                            <div class="send message">
+                                <div class="msg">
+                                    <h5>${result.senderDetails.senderId.firstName + ' ' + result.senderDetails.senderId.lastName}</h5>
+                                    <p>${result.getAllOldMessage[i].message}</p>
+                                    <small>${formattedTime}</small>
+                                </div>
+                                <img src="<%=adminData.image%>" alt="">
+                            </div>
+                        `
+          } else {
+            html1 += `
+                            <div class="received message">
+                                <img src="<%=subAdminData.image%>" alt="">
+                                <div class="msg">
+                                    <h5>${result.senderDetails.receiverId.firstName + ' ' + result.senderDetails.receiverId.lastName}</h5>
+                                    <p>${result.getAllOldMessage[i].message}</p>
+                                    <small>${formattedTime}</small>
+                                </div>
+                            </div>
+                        `
+          }
+          $(".chat_body").append(html1);
+          scrollToBottom()
+        }
+        scrollToBottom()
+
+        $(".chat_footer").html(`<input type="text" name="" id="msgInput" class="form_control" placeholder="Type your message..." onkeydown="handleKeyPress(event, '${adminId}', '${subAdminId}')">
+              <div class="input_group">
+                <input type="file" id="upload" class="d-none">
+                <label for="upload"><i class="fa-solid fa-paperclip"></i></label>
+              </div>
+              <button onclick="sendMessage('${adminId}','${subAdminId}')" >Send</button>
+      `)
+      });
+      
+      function handleKeyPress(event, sender, receiver) {
+        if (event.key === "Enter") {
+        sendMessage(sender, receiver);
+        event.preventDefault();
+        $('.chat-down').scrollTop($('.chat-down > .chat').height())
+        }
+        scrollToBottom();
+    }  
+    
+      var messageInput = document.getElementById("msgInput");
+      // messageInput.addEventListener("keypress", function(event) {
+      //   if (event.key === 'Enter') {
+      //     event.preventDefault();
+      //     sendMessage('<%=adminData._id%>', '<%=subadminId%>');
+      //   }
+      // });
+      function sendMessage(senderId, receiverId) {
+        console.log("sendMessage");
+        let msgInputs = document.getElementById("msgInput");
+        msgInput = msgInputs.value;
+
+        if (msgInput.trim() !== '') {
+          data = {
+            receiverId: receiverId != adminId ? receiverId : senderId,
+            senderId: adminId,
+            type: 0,
+            message: msgInput
+          };
+       console.log("Data",data);
+          socket.emit("send_message", data);
+          document.getElementById("msgInput").value = '';
+
+          msgInputs.value = ''; 
+          appendMessage(adminId, msgInput);
+          // socket.on("send_message", (response) => {
+          // console.log("resposne");
+          //   // scrollToBottom()
+          //   appendMessage(adminId, msgInput);
+            
+          // });
+        }
+      }
+
+      function appendMessage(senderId, message) {
+        console.log("appendMessage");
+        const formattedTime = new Date().toLocaleTimeString();
+        let html = `
+            <div class="send message">
+                <div class="msg">
+                    <h5><%=adminData.firstName +' '+ adminData.lastName%></h5>
+                    <p>${message}</p>
+                    <small>${formattedTime}</small>
+                </div>
+                <img src="<%=adminData.image%>" alt="">
+            </div>
+        `;
+        $(".chat_body").append(html);
+        scrollToBottom()
+
+      }
+
+      function scrollToBottom() {
+        var chatBody = document.getElementById('chat-down');
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+    </script>
+
+</body>
+
+</html>

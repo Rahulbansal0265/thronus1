@@ -1,0 +1,125 @@
+<!-- Main Content -->
+<section class="section">
+  <div class="section-header">
+    <h1>Doctors List</h1>
+  </div>
+  <div class="row" id="tableID">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Doctors Table</h4>
+        </div>
+        <div class="table-responsive px-3">
+          <table
+            id="table_get"
+            class="table table-striped table-bordered"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>E-mail</th>
+                <th>Mobile</th>
+
+                <th>Status</th>
+                <th>Verification</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% usersData.forEach(( data, i)=>{%>
+              <tr>
+                <td><%= i+1%></td>
+                <td><%= data.name%></td>
+                <td>
+                   <% if(data.image){ %>
+                  <img
+                    id="blah"
+                    src="/images/userImg/<%= data.image %>"
+                    alt="your image"
+                    width="50"
+                    height="50"
+                  />
+                  <% }else{ %>
+                  <img
+                    id="blah"
+                    src="/assets/img/dummy-user.png"
+                    alt="your image"
+                    width="50"
+                    height="50"
+                  />
+                  <% } %>
+                </td>
+                <td><%= data.email%></td>
+                <td><%= data.mobile%></td>
+
+                <td>
+                  <div
+                    class="custom-control custom-control-primary custom-switch"
+                  >
+                    <input onclick="status(this)" type="checkbox"
+                    class="custom-control-input" id="<%= data.id %>" <%=
+                    data.status == 1? "checked":"" %> >
+                    <label
+                      class="custom-control-label"
+                      for="<%= data.id %>"
+                    ></label>
+                  </div>
+                </td>
+
+                <td>
+                  <div class="form-group">
+                    <select
+                      name="isVerify"
+                      onchange="verification('<%= data.id %>',this)"
+                      class="form-control"
+                    >
+                      <option value="0" <%= data.isVerify == 0? "selected":"" %>>Reject</option>
+                      <option value="1" <%= data.isVerify == 1? "selected":"" %> >Pending</option>
+                      <option value="2" <%= data.isVerify == 2? "selected":"" %> >Approve</option>
+                    </select>
+                  </div>
+                </td>
+
+                <td>
+                  <!-- <a href="/deleteuser/" onclick="confirmDelete('')"class=" btn
+                                                btn-success"><i class="icon-pencil7">Delete</i></a> -->
+                  <!-- <a
+                  href="/admin/deleteuser/= data.id%>"
+                  id="deleteuser"
+                  class="btn btn-danger"
+                  >Delete</a
+                > -->
+
+                  <!-- <button
+                    class="btn btn-danger deleteuser"
+                    data-id="<%= data.id %>"
+                  >
+                    Delete
+                  </button> -->
+                  <!-- <a href="/adduser" class="btn btn-success">Add</a> -->
+                  <!-- <a
+                    href="/admin/updateUser/<%= data.id%>"
+                    class="btn btn-primary"
+                    >Edit</a
+                  > -->
+                  <a
+                    href="/admin/doctorDetails/<%= data.id%>"
+                    class="btn btn-success"
+                    >View</a
+                  >
+                </td>
+              </tr>
+              <% })%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- main content End -->
+<script src="../assets/js/myScripts.js"></script>

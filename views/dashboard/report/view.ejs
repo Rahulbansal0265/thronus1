@@ -1,0 +1,46 @@
+<section class="app-user-view">
+    <div class="app-user-view">
+      <div class="user-info-wrapper">
+        <div class="row">
+          <!-- User Card starts-->
+          <div class="col-xl-12 col-lg-12 col-md-12">
+            <div class="card user-card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 col-lg-12 mt-2 mt-xl-0 ms-auto text-start">
+                    <button type="button" class="border-0 bg-transparent text-secondary  fs-1" onclick="history.back()"><i class="ph-duotone ph-arrow-circle-left"></i></button>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                    <div class="user-avatar-section">
+                      <div class="d-flex justify-content-start">
+                        <div class="d-flex flex-column ms-1">
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Reported By </h4>
+                            <span class="card-text"><%= reportDetails?.reportBy?.firstName + ' '+ reportDetails?.reportBy?.lastName%> </span>
+                          </div>
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Reported To </h4>
+                            <span class="card-text"><%= reportDetails?.reportTo?.firstName + ' '+ reportDetails?.reportTo?.lastName%> </span>
+                          </div>
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">
+                              Description </h4>
+                              <span class="card-text"><%= reportDetails?.description.replace(/<\/?[^>]+(>|$)/g, "").replace(/&nbsp;/g, " ")%></span>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+  
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+          </div>  
+  
+        </div>
+      </div>
+    </div>
+  
+  </section>

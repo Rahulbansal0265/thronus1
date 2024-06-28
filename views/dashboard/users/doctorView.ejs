@@ -1,0 +1,186 @@
+<section class="app-user-view">
+  <div class="app-user-view">
+    <div class="user-info-wrapper">
+      <div class="row">
+        <!-- User Card starts-->
+        <div class="col-12">
+          <div class="card user-card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12 col-lg-12 mt-2 mt-xl-0 ms-auto text-start">
+                  <button type="button" class="border-0 bg-transparent text-secondary  fs-1" onclick="history.back()"><i class="ph-duotone ph-arrow-circle-left"></i></button>
+                </div>
+                <div class="col-xl-6 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                  <div class="user-avatar-section">
+                    <div class="d-flex justify-content-start">
+                          <img class="img-fluid rounded" src="<%= user[0].image ? user[0].image : '/assets/noimages.png' %>"
+                            width="150" alt="User avatar">
+                      <div class="d-flex flex-column ms-1">
+                        <div class="user-info mb-1">
+                          <h4 class="mb-0"><%= user[0].firstName %> <%= user[0].lastName %></h4>
+                          <span class="card-text">
+                            <%= user[0].email%>
+                          </span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-12 mt-2 mt-xl-0">
+                  <div class="user-info-wrapper">
+
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <i class="me-1 fs-4 ph-duotone ph-check-circle"></i>
+                        <span class="card-text user-info-title fw-bold mb-0">Status</span>
+                      </div>
+                      <p class="card-text mb-0">
+                        <%= user[0].status==1 ? 'Active' : 'InActive' %>
+                      </p>
+                    </div>
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <i class="me-1 fs-4 ph-duotone ph-star"></i>
+                        <span class="card-text user-info-title fw-bold mb-0">Role</span>
+                      </div>
+                      <p class="card-text mb-0">Doctor</p>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                      <div class="user-info-title">
+                        <i class="me-1 fs-4 ph-duotone ph-phone"></i>
+                        <span class="card-text user-info-title fw-bold mb-0">Mobile</span>
+                      </div>
+                      <p class="card-text mb-0">
+                        <%= user[0]?.countrycode?user[0]?.countrycode:"+1"%><%= user[0]?.phoneNumber%>
+                      </p>
+                    </div>
+                    <div class="d-flex flex-md-nowrap flex-wrap my-50">
+                      <div class="user-info-title">
+                        <i class="me-1 fs-4 ph-duotone ph-map-pin"></i>
+                        <span class="card-text user-info-title fw-bold mb-0">Address</span>
+                      </div>
+                      <p class="card-text mb-0">
+                        <%= user[0]?.address %>
+                      </p>
+                    </div>
+                      <div class="d-flex flex-wrap my-50">
+                        <div class="user-info-title">
+                          <i class="me-1 fs-4 ph-duotone ph-balloon"></i>
+                          <span class="card-text user-info-title fw-bold mb-0">Doctor Id</span>
+                        </div>
+                        <p class="card-text mb-0"><%= user[0]?.doctorId %></p>
+                      </div>
+                      <div class="d-flex flex-wrap my-50">
+                        <div class="user-info-title">
+                          <i class="me-1 fs-4 ph-duotone ph-first-aid"></i>
+                          <span class="card-text user-info-title fw-bold mb-0">Health Professional</span>
+                        </div>
+                        <p class="card-text mb-0"><%= categoryName?.categoryId?.title%>
+                        </p>
+                      </div>                      
+                  </div>
+                </div>
+           
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- /User Card Ends-->
+      </div>
+    </div>
+  </div>
+
+</section>
+<section class="app-user-list">
+
+    <!-- list section start -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Doctor Prescription</h3>
+      </div>
+      <div class="card-datatable table-responsive pt-0">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+          <table id="myTable" class="display">
+            <thead>
+              <tr>
+                <th>S no.</th>
+                <th>Title</th>
+                <th>Patient Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Description</th>
+                <th>Image</th>
+                <!-- <th>Status</th> -->
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <% if(user[0].doctorPrescription.length> 0 ){ %>
+              <tbody>
+            <% user[0].doctorPrescription.forEach((data,i)=>{%>
+              <tr>
+                <td><%= i+1%></td>
+                <td><%=data?.title%> </td>
+                <td><%=data?.patientName%> </td>
+                <td><%=data?.email%> </td>
+                <td><%=data?.countryCode + +data?.phoneNumber%></td>
+                <td><%=data?.note.substring(0,20) + "..."%> </td>
+                <td> <img class="" id="blah" src="<%= data?.image ? data?.image : '/assets/noimages.png' %>" alt="your image" width="70" height="70" />
+                </td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light" data-bs-toggle="dropdown" aria-expanded="false">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-more-vertical"
+                      >
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="12" cy="5" r="1"></circle>
+                        <circle cx="12" cy="19" r="1"></circle>
+                      </svg>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item d-flex align-items-center" href="/admin/prescriptionView/<%= data?._id%>">
+                        <i class="ph ph-eye me-50"></i><span>View</span>
+                      </a>                        
+                    </div>
+                  </div>
+                </td>
+                
+               
+              </tr>
+              
+              <%})%>
+            </tbody>
+            <%}else{%>
+            <tr class="odd">
+              <td valign="top" colspan="6" class="dataTables_empty">No data available in
+                table</td>
+            </tr>
+            <%}%>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- list section end -->
+  </section>
+
+<script>
+  $(document).ready(function() {
+    $('#myTable').DataTable();
+  });
+</script>
+
+
+
+   

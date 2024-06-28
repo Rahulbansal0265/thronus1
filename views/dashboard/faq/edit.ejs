@@ -1,0 +1,51 @@
+<section class="section">
+    <div class="section-header">
+      <h1>Edit Follow up Questionnaire</h1>
+    </div>
+    <form method="post" id="categoryAddForm" action="/admin/updateFaq" enctype="multipart/form-data">
+      <div class="card-body bg-white rounded-4 shadow">
+        <div class="form-group">
+          <label>Question</label>
+          <input type="text" name="question" value="<%= data?.question%>" class="form-control"/>
+          <input type="hidden" name="id" value="<%= data?._id%>">
+        </div>
+        <!-- <div class="form-group">
+            <label>Answer</label>
+            <input type="text" name="answer" value="<%= data?.answer%>" class="form-control"/>
+          </div> -->
+        <button type="submit" class="btn btn-primary my-2">Submit</button>
+        <button class="btn btn-secondary" onclick="history.back()">Cancel</button>
+      </div>
+    </form>
+  </section>
+  
+  <script>
+  
+      $('#categoryAddForm').validate({
+        rules: {
+          "question": {
+              required: true,
+          }
+          // "answer": {
+          //     required: true,
+          // }
+        },
+        messages: {
+          "question": {
+              required: "Question field is required",
+              minlength: "Question field must contain at least {0} characters",
+          }
+          // "answer": {
+          //     required: "Answer field is required",
+          //     minlength: "Answer field must contain at least {0} characters",
+          // }
+        },
+      //   submitHandler: function (form) { // for demo
+      //         alert('valid form');  // for demo
+      //         return false;  // for demo
+      //     }
+      });
+    
+  </script>
+  
+  

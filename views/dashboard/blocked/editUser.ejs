@@ -1,0 +1,71 @@
+<section class="bs-validation">
+  <div class="row">
+
+    <div class="col-md-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">jQuery Validation</h4>
+        </div>
+        <div class="card-body">
+          <form id="jquery-val-form" method="post" novalidate="novalidate">
+            <div class="mb-1">
+              <label class="form-label" for="fName">First Name</label>
+              <input type="text" class="form-control" id="fName" value="<%= user.firstName%>" name="fName" placeholder="John Doe">
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="lName">Last Name</label>
+              <input type="text" class="form-control" id="lName" name="lName" value="<%= user.lastName%>" placeholder="John Doe">
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="email">Email</label>
+              <input type="text" id="email" name="email" value="<%= user.email%>" class="form-control" placeholder="john.doe@email.com">
+            </div>
+
+            <!-- <div class="mb-1">
+              <label class="form-label" for="dob">DOB</label>
+              <input type="text" class="form-control flatpickr-input" name="dob" id="dob" readonly="readonly">
+            </div> -->
+            <div class="mb-1">
+              <label class="form-label" for="countryCode">Country</label>
+              <div class="position-relative"><select class="form-select select2 select2-hidden-accessible" id="countryCode" name="countryCode" data-select2-id="countryCode" tabindex="-1" aria-hidden="true">
+                  <option value="" data-select2-id="2">Select Country</option>
+                  <option value="usa">USA</option>
+                  <option value="uk">UK</option>
+                  <option value="france">France</option>
+                  <option value="australia">Australia</option>
+                  <option value="spain">Spain</option>
+                </select></div>
+            </div>
+            <div class="mb-1">
+              <label for="customFile" class="form-label">Profile pic</label>
+              <input class="form-control" type="file" id="customFile" name="customFile">
+            </div>
+            <div class="mb-1">
+              <label class="d-block form-label">Gender</label>
+              <div class="form-check my-50">
+                <input type="radio" id="validationRadiojq1" name="validationRadiojq" class="form-check-input">
+                <label class="form-check-label" for="validationRadiojq1">Male</label>
+              </div>
+              <div class="form-check">
+                <input type="radio" id="validationRadiojq2" name="validationRadiojq" class="form-check-input">
+                <label class="form-check-label" for="validationRadiojq2">Female</label>
+              </div>
+            </div>
+            <div class="mb-1">
+              <label class="d-block form-label" for="validationBio">Bio</label>
+              <textarea class="form-control" id="validationBio" name="validationBiojq" rows="3"></textarea>
+            </div>
+            <div class="mb-1">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="validationCheck" name="validationCheck">
+                <label class="form-check-label" for="validationCheck">Agree to our terms and conditions</label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary waves-effect waves-float waves-light" name="submit" value="Submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /jQuery Validation -->
+  </div>
+</section>

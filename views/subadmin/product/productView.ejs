@@ -1,0 +1,78 @@
+<section class="app-user-view">
+    <div class="app-user-view">
+      <div class="user-info-wrapper">
+        <div class="row">
+          <!-- User Card starts-->
+          <div class="col-xl-12 col-lg-12 col-md-12">
+            <div class="card user-card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 col-lg-12 mt-2 mt-xl-0 ms-auto text-start">
+                    <button type="button" class="border-0 bg-transparent text-secondary  fs-1" onclick="history.back()"><i class="ph-duotone ph-arrow-circle-left"></i></button>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                    <div class="user-avatar-section">
+                      <div class="d-flex justify-content-start">
+                        <div class="d-flex flex-column ms-1">
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Title</h4>
+                            <span class="card-text"><%= data?.title%> </span>
+                          </div>
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Manufacturer</h4>
+                            <span class="card-text"><%= data?.manufacturer%> </span>
+                          </div>
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Salt Composition</h4>
+                            <span class="card-text"><%= data?.saltComposition%> </span>
+                          </div>
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Manufacturer</h4>
+                            <span class="card-text"><%= data?.manufacturer%> </span>
+                          </div>
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Salt Synonymus</h4>
+                            <span class="card-text"><%= data?.saltSynonymus%> </span>
+                          </div>
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Storage</h4>
+                            <span class="card-text"><%= data?.storage%> </span>
+                          </div>
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Price</h4>
+                            <span class="card-text"><%= data?.price%> </span>
+                          </div>
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Storage</h4>
+                            <span class="card-text"><%= data?.storage%> </span>
+                          </div>
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">
+                              Description </h4>
+                              <span class="card-text"><%= data?.description.replace(/<\/?[^>]+(>|$)/g, "").replace(/&nbsp;/g, " ")%></span>
+                          </div>
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0">Image</h4>
+                            <% if(data.image.length > 0){%>
+                            <% for(let i in data.image){%>
+                              <img class="img-fluid rounded" src="<%= data?.image[i] %>" width="150" alt="User avatar"/>
+                            <%}%>
+                            <%}%>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+  
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+          </div>  
+  
+        </div>
+      </div>
+    </div>
+  
+  </section>

@@ -1,0 +1,167 @@
+<section class="app-user-list">
+
+  <!-- list section start -->
+
+  <div class="card">
+    <div class="card-datatable table-responsive pt-0">
+      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+        <div class="d-flex justify-content-between align-items-center header-actions mx-1 row mt-75">
+          <div class="col-sm-12 col-md-4 col-lg-6">
+            <div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select">
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select> entries</label></div>
+          </div>
+          <div class="col-sm-12 col-md-8 col-lg-6 ps-xl-75 ps-0">
+            <div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-md-end align-items-center flex-sm-nowrap flex-wrap me-1">
+              <div class="me-1">
+                <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control" placeholder="" aria-controls="DataTables_Table_0"></label></div>
+              </div>
+              <!-- <div class="dt-buttons btn-group flex-wrap"><button class="btn add-new btn-primary mt-50" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="modal" data-bs-target="#modals-slide-in"><span>Add New User</span></button> </div> -->
+            </div>
+          </div>
+        </div>
+        <table class="user-list-table table dataTable no-footer dtr-column" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+          <thead class="table-light">
+            <tr role="row">
+             <th>S no.</th>
+             <th>Name</th>
+             <th>Email</th>
+             <th>Subject</th>
+             <th>Status</th>
+             <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% list.forEach((data,i)=>{%>
+            <tr class="odd">
+              <td><%= i+1%></td>
+              <td><%= data?.name%></td>
+              <td><%= data?.email%></td>
+              <td><%= data?.subject%></td>
+              <td>
+                <select id="statuschange" onclick="funnn()" class="statuschange form-control" data-id="<%=data._id%>" <% if(data.status !=0){ %> disabled<% } %>>
+                  <option value=0 <% if(data.status==0){ %> selected <% } %>} %> > Pending </option>
+                  <option value=1 <% if(data.status==1){ %> selected <% } %>} %> > Approved </option>
+                </select>
+              </td>
+              <td>
+                <div class="dropdown">
+                  <button type="button" class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light" data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                      <circle cx="12" cy="12" r="1"></circle>
+                      <circle cx="12" cy="5" r="1"></circle>
+                      <circle cx="12" cy="19" r="1"></circle>
+                    </svg>
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item d-flex align-items-center" href="/admin/viewSupport/<%= data?._id%>">
+                      <i class="ph ph-eye me-50"></i>
+                      <span>View</span>
+                    </a>
+                    <button class="dropdown-item deleteSupport" data-id="<%= data?._id%>">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash me-50">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                        </path>
+                      </svg>
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <!-- Modal -->
+  <!-- ... modal content ... -->
+
+  <div class="modal fade text-start" id="default" tabindex="-1" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel1">Basic Modal</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="modalForm">
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-1">
+                  <label class="form-label" for="title">Title</label>
+                  <input type="text" id="title" class="form-control" name="title" placeholder="Title">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mb-1">
+
+                  <label class="d-block form-label" for="note">Solution</label>
+                  <textarea class="form-control" id="note" name="note" placeholder="write a solution" rows="3"></textarea>
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Send</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+  <!-- list section end -->
+</section>
+
+
+<script defer>
+  $(document).ready(function() {
+    $('#myTable').DataTable();
+  });
+</script>
+<script>
+  $('#statuschange').on("change", function() {
+    alert('clicked');
+    return
+
+    var id = $(this).data('id'); // Use .data() to access data attributes
+    var value = $(this).val();
+
+    $.ajax({
+      type: "post",
+      url: "/admin/support_status",
+      data: {
+        id: id,
+        value: value
+      },
+      beforeSend: {
+        // newBlockUi("#card");
+      },
+      success: function(data) {
+        console.log(data);
+        window.location.reload();
+      },
+      error: function(err) {
+        console.log(err, "errrrrrrrrr");
+      }
+    });
+  });
+</script>
+
+
+
+
+
+<!-- Your HTML code remains the same -->

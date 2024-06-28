@@ -1,0 +1,277 @@
+<div class="content-right">
+  <div class="content-wrapper container-xxl p-0">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+      <div class="body-content-overlay"></div>
+      <!-- Main chat area -->
+      <section class="chat-app-window">
+
+        <!-- Active Chat -->
+        <div class="active-chat">
+          <!-- Chat Header -->
+          <div class="chat-navbar">
+            <header class="chat-header">
+              <div class="d-flex align-items-center">
+                <div class="sidebar-toggle d-block d-lg-none me-1">
+                  <i data-feather="menu" class="font-medium-5"></i>
+                </div>
+                <div class="avatar avatar-border user-profile-toggle m-0 me-1">
+                  <img src="<%=subAdminData.image%>" alt="avatar" height="36" width="36" />
+                  <!-- <span class="avatar-status-busy"></span> -->
+                </div>
+                <h6 class="mb-0"><%= subAdminData.firstName %></h6>
+              </div>
+
+            </header>
+          </div>
+          <!--/ Chat Header -->
+
+          <!-- User Chat messages -->
+          <div class="user-chats">
+            <div class="chats" id="chat-down">
+
+            </div>
+          </div>
+          <!-- User Chat messages -->
+
+          <!-- Submit Chat form -->
+          <form class="chat-app-form" action="javascript:void(0);" onsubmit="sendMessage(`<%=adminData._id%>,<%=subadminId%>`)">
+
+          </form>
+          <!--/ Submit Chat form -->
+        </div>
+        <!--/ Active Chat -->
+      </section>
+      <!--/ Main chat area -->
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.3/socket.io.js"></script>
+<script>
+  let host_name = window.location.hostname;
+  let url = `http://${host_name}:4060/`
+  let socket = io(url);
+  let adminId = '<%=adminData._id%>'
+  let subAdminId = '<%=subadminId%>'
+  // console.log("adminId", adminId);
+  let data = {
+    userId: adminId,
+    type: 0
+  }
+  socket.emit("connect_user", data)
+  socket.on("connect_listener", data => {});
+
+  let getData = {
+    senderId: adminId,
+    receiverId: subAdminId
+  }
+  socket.emit("get_messages", getData);
+  scrollToBottom()
+  socket.on("get_messages", result => {
+    for (let i = 0; i < result.getAllOldMessage.length; i++) {
+      let html = '';
+      let messageContent;
+      if (result.getAllOldMessage[i].messageType === 1) {
+        messageContent = `<img src="${result.getAllOldMessage[i].message}" alt="image" class="chatimg" />`;
+      } else {
+        messageContent = `<p>${result.getAllOldMessage[i].message}</p>`;
+      }
+      if (result.getAllOldMessage[i].senderId == adminId) {
+        html += `
+            <div class="chat">
+                <div class="chat-avatar">
+                    <span class="avatar box-shadow-1 cursor-pointer">
+                      <img src="<%=adminData.image%>" alt="avatar" height="36" width="36" />
+                    </span>
+                </div>
+                <div class="chat-body">
+                    <div class="chat-content">
+                      <p>${messageContent}</p>
+                    </div>
+                </div>
+            </div>
+            `
+      } else {
+        html += `
+            <div class="chat chat-left">
+                <div class="chat-avatar">
+                    <span class="avatar box-shadow-1 cursor-pointer">
+                      <img src="<%=subAdminData.image%>" alt="avatar" height="36" width="36" />
+                    </span>
+                </div>
+                <div class="chat-body">
+                    <div class="chat-content">
+                      <p>${messageContent}</p>
+                    </div>
+                </div>
+            </div>
+            `
+      }
+      $(".chats").append(html);
+      scrollToBottom();
+    }
+    $(".chat-app-form").html(`
+          <div class="input-group input-group-merge me-1 form-send-message" id="sendMsg">
+              <input type="text" class="form-control message" id="msgInput" placeholder="Type your message..." onkeydown="handleKeyPress(event, '${adminId}', '${subAdminId}')"/>
+              <span class="input-group-text">
+                <label for="image-file" class="attachment-icon form-label mb-0">
+                  <i class="ph-fill ph-image fs-4"></i>
+                  <input type="file" class="visually-hidden" id="image-file" accept="image/*" onchange="previewImage(event)" /> 
+                </label>
+              </span>
+          </div>
+          <div id="image-preview" class="mb-1" style="display:none"></div>
+          <button type="button" class="btn btn-primary send" onclick="sendMessage('${adminId}','${subAdminId}')">
+              <i data-feather="send" class="d-lg-none"></i>
+              <span class="d-none d-lg-block">Send</span>
+          </button>
+        `);
+    scrollToBottom()
+  });
+
+  function handleKeyPress(event, sender, receiver) {
+    if (event.key === "Enter") {
+      // console.log('Enter key pressed. Sending message...');
+      sendMessage(sender, receiver);
+      event.preventDefault();
+      scrollToBottom();
+    }
+  }
+
+  socket.on("send_message", (response) => {
+    scrollToBottom();
+    if (response.senderId === adminId) {
+      appendMessage(response.senderId, response.message, response.messageType);
+    } else {
+      appendMessage1(response.senderId, response.message, response.messageType);
+    }
+  });
+
+  async function sendMessage(senderId, receiverId) {
+    let msgInput;
+    var photo = document.getElementById("image-file").files[0];
+    var msgInputs = document.getElementById("msgInput").value.trim();
+
+    if (!photo && msgInputs === '') {
+      return;
+    }
+    if (photo) {
+      // console.log(photo.name,">>>>>>>>>>>>>>>photo");
+      let formData = new FormData();
+      formData.append("image", photo);
+
+      let response = fetch("/api/imageUpload", {
+        method: "POST",
+        headers: {
+          "secret_key": "U2FsdGVkX1+dBGJMQLVm7gikR8qDZEjCTRZa6AALPf/QJDHZEm7SYytvmEP0ROoG",
+          "publish_key": "U2FsdGVkX1+ggQPGHAF4EKnOx1GNHFGihc5CSpAXQHo95VhS3o24JJ/uE1d5zjmf"
+        },
+        body: formData
+      });
+      const data = await response;
+      let re = await data.json()
+      let result = re.body.image
+      msgInput = result;
+    } else {
+      msgInput = msgInputs
+    }
+
+    data = {
+      receiverId: receiverId != adminId ? receiverId : senderId,
+      senderId: adminId,
+      messageType: photo ? 1 : 0,
+      message: msgInput
+    };
+    socket.emit("send_message", data);
+    // document.getElementById("msgInput").value = '';
+    document.getElementById("msgInput").value = '';
+    document.getElementById("image-file").value = '';
+    removeImage();
+    document.getElementById('image-preview').style.display = 'none';
+
+  }
+
+  function appendMessage(senderId, message, messageType) {
+    let messageContent;
+    if (messageType === 1) {
+      messageContent = `<img src="${message}" alt="image" class="chatimg" />`;
+    } else {
+      messageContent = `<p>${message}</p>`;
+    }
+    let html = `
+            <div class="chat">
+                <div class="chat-avatar">
+                    <span class="avatar box-shadow-1 cursor-pointer">
+                      <img src="<%= adminData.image%>" alt="avatar" height="36" width="36"/>
+                    </span>
+                </div>
+                <div class="chat-body">
+                    <div class="chat-content">
+                      <p>${messageContent}</p>
+                    </div>
+                </div>
+            </div>
+            `
+    $(".chats").append(html);
+    scrollToBottom()
+  }
+
+  function appendMessage1(senderId, message, messageType) {
+    let messageContent;
+    if (messageType === 1) {
+      messageContent = `<img src="${message}" alt="image" class="chatimg" />`;
+    } else {
+      messageContent = `<p>${message}</p>`;
+    }
+    let html = `
+    <div class="chat chat-left">
+                  <div class="chat-avatar">
+                      <span class="avatar box-shadow-1 cursor-pointer">
+                        <img src="<%= subAdminData.image %>" alt="avatar" height="36" width="36" />
+                      </span>
+                  </div>
+                  <div class="chat-body">
+                      <div class="chat-content">
+                        <p>${messageContent}</p>
+                      </div>
+                  </div>
+              </div>
+              `
+    $(".chats").append(html);
+    scrollToBottom()
+  }
+
+  function scrollToBottom() {
+    $('.user-chats').animate({
+      scrollTop: 9999
+    }, 'slow');
+  }
+
+  function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const imagePreview = document.getElementById("image-preview");
+        imagePreview.innerHTML = `
+        <div class="image-preview-container">
+          <img src="${e.target.result}" alt="Image Preview" class="image-preview" style="max-width: 200px; max-height: 200px; margin-bottom: 10px;" />
+          <button class="remove_image" onclick="removeImage()"><i class="ph-duotone ph-x-circle"></i></button>
+        </div>
+      `;
+      };
+      reader.readAsDataURL(file);
+    }
+    document.getElementById('image-preview').style.display = 'block';
+  }
+
+  function removeImage() {
+    const imagePreview = document.getElementById("image-preview");
+    imagePreview.innerHTML = '';
+    document.getElementById("image-file").value = '';
+    document.getElementById('image-preview').style.display = 'none';
+  }
+</script>

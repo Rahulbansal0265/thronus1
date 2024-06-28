@@ -1,0 +1,35 @@
+<section class="bs-validation">
+    <div class="row">
+  
+      <div class="col-9 md-3 col-9">
+        <div class="card">
+         
+          <div class="card-body">
+            <a href="public/images/4F5H9GDED5E8F218BEJE460J7C60.csv" download>
+              <i class="fa fa-download"></i><h4>Click here to see format</h4>
+          </a>  
+            <form id="jquery-val-form " action="/admin/upload_csv" enctype="multipart/form-data" method="post" novalidate="novalidate">
+             
+  
+                <div class="mb-1">
+                    <label for="csvfile" class="form-label">Choose CSV File</label>
+                    <input class="form-control" type="file" id="csvfile" name="csvfile" accept=".csv">
+                    <img class="my-2 w-50" id="blah" src=">" alt="">
+                  </div>
+              <button type="submit" class="btn btn-primary waves-effect waves-float waves-light">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- /jQuery Validation -->
+    </div>
+  </section>
+  
+  <script>
+    productimg.onchange = (evt) => {
+      const [file] = productimg.files;
+      if (file) {
+        blah.src = URL.createObjectURL(file);
+      }
+    };
+  </script>

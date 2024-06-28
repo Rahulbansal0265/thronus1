@@ -1,0 +1,201 @@
+<script src="../../../assets/js/myScripts.js"></script>
+<section class="app-user-list">
+    <!-- list section start -->
+    <div class="card">
+      <div class="card-header">
+          <h3 class="card-title">Doctors</h3>
+          <a href="/admin/doctor_add" class="btn btn-primary text-left">Add Doctor</a>
+      </div>
+      <div class="card-datatable table-responsive pt-0">
+        <div
+          id="DataTables_Table_0_wrapper"
+          class="dataTables_wrapper dt-bootstrap5 no-footer"
+        >
+          <table
+            class="user-list-table table dataTable no-footer dtr-column"
+            id="myTable"
+            role="grid"
+            aria-describedby="DataTables_Table_0_info"
+          >
+            <thead>
+              <tr>
+                <th>Sr no.</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>phone Number</th>
+                <th>Status</th>
+                <th>Assigned Staff</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% result.forEach((data,i)=>{%>
+              <tr>
+                <td><%= i+1%></td>
+                <td style="word-break: break-word;"><%= data?.firstName + " " + data?.lastName %> </td>
+                <td style="word-break: break-word;"><%= data?.email%></td>
+                <td><%= data?.countrycode?data?.countrycode:"+1"%> <%= data?.phoneNumber%></td>
+                <!-- <td>
+                  <div class="avatar avatar-xl">
+                    <img
+                      src="<%- data?.image ? data?.image :'/images/360.jpeg'%>"
+                      alt="avatar"
+                    />
+                  </div>
+                </td> -->
+                <td>
+                  <div class="form-check form-switch">
+                    <input onclick="status(this)" type="checkbox"
+                    class="form-check-input" id="<%= data?.id %>"
+                    <%=data?.status==1? "checked" :"" %>>
+                    <label
+                      class="custom-control-label"
+                      for="<%= data?.id %>"
+                    ></label>
+                  </div>
+                </td>
+                <td>
+                    <% if (data.AssignedSubAdminId) { %>
+                      <% const assignedSubAdminId = data.AssignedSubAdminId.toString(); %>
+                      <% const assignedSubAdmin = get_all_sub_admin.find(subAdmin => subAdmin._id.toString() === assignedSubAdminId); %>
+                      <% if (assignedSubAdmin) { %>
+                        <%= assignedSubAdmin.firstName %>
+                      <% } %>
+                    <% } else { %>
+                      <% if (get_all_sub_admin.length > 0) { %>
+                        <select name="sub_admin_id" onchange="getval(this);" data-doctor-id="<%= data?._id %>">
+                          <option>select</option>
+                          <% for (let i in get_all_sub_admin) { %>
+                            <option value="<%= get_all_sub_admin[i]._id %>"><%= get_all_sub_admin[i].firstName %></option>
+                          <% } %>
+                        </select>
+                      <% } %>
+                    <% } %>
+                  </td>
+                
+                <td>
+                  <div class="dropdown">
+                    <button
+                      type="button"
+                      class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-more-vertical"
+                      >
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="12" cy="5" r="1"></circle>
+                        <circle cx="12" cy="19" r="1"></circle>
+                      </svg>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a
+                        class="dropdown-item d-flex align-items-center"
+                        href="/admin/viewUser/<%= data?._id%>"
+                      >
+                        <i class="ph ph-eye me-50"></i>
+                        <span>View</span>
+                      </a>
+                        <a class="dropdown-item d-flex align-items-center" href="/admin/editDoctor/<%= data?._id%>">
+                        <i class="ph ph-pen me-50"></i><span>Edit</span></a>
+  
+                      <button class="dropdown-item deleteUser" data-id="<%= data?._id%>">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="feather feather-trash me-50"
+                        >
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path
+                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                          ></path>
+                        </svg>
+                        <span>Delete</span>
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              
+              <%})%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+    </div>
+    <!-- list section end -->
+  </section>
+  <script>
+    $(document).ready(function () {
+      $("#myTable").DataTable();
+    });
+    function getval(select)
+    {
+      var doctorId = select.getAttribute('data-doctor-id');
+    //   alert(doctorId);
+        $.ajax({
+          type: 'POST',
+          url: '/admin/assignSubAdminDoctor',
+          data: {
+              sub_admin_id : select.value,
+              doctor_id: doctorId
+          }, 
+          success: function(data) {
+            //   console.log("Object", data); 
+              window.location.reload();
+          },
+          error: function(xhr, status, error) {
+              console.error(xhr.responseText); 
+          }
+      });
+    }
+  </script>
+  <script>
+    $(document).ready(function () {
+      // $("#myTable").DataTable();
+      $("#uploadCsvBtn").on("click", function () {
+        $("#csvFile").click();
+      });
+      $("#csvFile").on("change", function () {
+        var file = this.files[0];
+  
+        if (file) {
+          var formData = new FormData();
+          formData.append("csvFile", file);
+          $.ajax({
+            type: "POST",
+            url: "/admin/upload_csv",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+              console.log(response);
+              window.location.reload();
+            },
+            error: function (error) {
+              console.error(error);
+            },
+          });
+        }
+      });
+    });
+  </script>
+  

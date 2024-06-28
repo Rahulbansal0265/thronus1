@@ -1,0 +1,138 @@
+<section class="bs-validation">
+  <div class="row">
+
+    <div class="col-md-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <% if(typeof user == 'undefined'){%>
+          <h4 class="card-title">Add Sub-Admin</h4>
+          <%} else {%>
+          <h4 class="card-title">Edit Sub-Admin</h4>
+          <%}%>
+        </div>
+        <div class="card-body">
+          <form id="jquery-val-form" method="post" enctype="multipart/form-data" action="<%= typeof user == 'undefined' ? '/admin/addUser': '/admin/updateUser'%>">
+            <div class="mb-1">
+              <label class="form-label" for="fName">First Name</label>
+              <input type="text" class="form-control" id="fName" value="<%= typeof user == 'undefined' ? '': user.firstName%>" name="fName" placeholder="John Doe">
+              <input type="hidden" name="id" value="<%= typeof user == 'undefined' ? '': user._id%>">
+
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="lName">Last Name</label>
+              <input type="text" class="form-control" id="lName" name="lName" value="<%= typeof user == 'undefined' ? '': user.lastName%>" placeholder="John Doe">
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="email">Email</label>
+              <input type="email" id="email" name="email" value="<%= typeof user == 'undefined' ? '': user.email%>" class="form-control" placeholder="john.doe@email.com">
+            </div>
+            <%if(typeof user == 'undefined'){%>
+            <div class="mb-1 eye_input">
+              <label class="form-label" for="password">Password</label>
+              <input type="password" id="password" name="password" value="" class="form-control" placeholder="**********">
+              <i class="far fa-eye-slash" id="togglePassword" style="top: 40px;"></i>
+            </div>
+            <%}%>
+            <div class="mb-1">
+              <label class="form-label" for="mobile">Mobile</label>
+              <input type="text" id="mobile" name="mobile" value="<%= typeof user == 'undefined' ? '': user.phoneNumber%>" class="form-control" placeholder="0123456789">
+            </div>
+
+            <!-- <div class="mb-1">
+              <label class="form-label" for="dob">DOB</label>
+              <input type="text" class="form-control flatpickr-input" name="dob" id="dob" readonly="readonly">
+            </div> -->
+
+            <div class="mb-1">
+              <label for="customFile" class="form-label">Image </label>
+              <input class="form-control" type="file" id="customFile" name="image">
+            </div>
+
+            <!-- <div class="mb-1">
+              <label class="d-block form-label" for="validationBio">Bio</label>
+              <textarea class="form-control" id="validationBio" name="bio" rows="3"><%= typeof user == 'undefined' ? '': user.bio%></textarea>
+            </div> -->
+
+            <button type="submit" class="btn btn-primary waves-effect waves-float waves-light" name="submit" value="Submit">Submit</button>
+            <button class="btn btn-secondary" onclick="history.back()">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /jQuery Validation -->
+  </div>
+</section>
+<!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script> -->
+
+<script>
+    $('#jquery-val-form').validate({
+      rules: {
+        "fName": {
+            required: true,
+        },
+        "lName": {
+            required: true,
+        },
+        "email": {
+            required: true,
+        },
+        "password": {
+            required: true,
+            minlength: 5,
+            maxlength:15,
+        },
+        "mobile": {
+            required: true,
+            minlength: 10,
+            maxlength:15,
+            digits: true
+        }
+      },
+      messages: {
+        "fName": {
+            required: "First Name field is required",
+            minlength: "First Name field must contain at least {0} characters",
+        },
+        "lName": {
+            required: "Last Name field is required",
+            minlength: "Last Name field must contain at least {0} characters",
+        },
+        "email": {
+            required: "Email field is required",
+            minlength: "Email field must contain at least {0} characters",
+        },
+        "password": {
+            required: "Password field is required",
+            minlength: "Password field must contain at least {0} characters",
+        },
+        "mobile": {
+            required: "Mobile field is required",
+            minlength: "Mobile field must contain at least {0} characters",
+            digits: "Mobile field can only contain numbers"
+        }
+      },
+      // submitHandler: function (form) { // for demo
+            // alert('valid form');  // for demo
+        //     return false;  // for demo
+        // }
+    });
+  const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#password');
+
+  togglePassword.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // toggle the eye slash icon
+    // this.classList.toggle('fa-eye-slash');
+    if (type === 'password') {
+      this.classList.remove('fa-eye');
+      this.classList.add('fa-eye-slash');
+    } else {
+      this.classList.remove('fa-eye-slash');
+      this.classList.add('fa-eye');
+    }
+  });
+
+  
+</script>

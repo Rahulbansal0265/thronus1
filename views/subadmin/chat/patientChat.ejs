@@ -1,0 +1,181 @@
+
+  <div class="content-right">
+    <div class="content-wrapper container-xxl p-0">
+      <div class="content-header row">
+      </div>
+      <div class="content-body">
+        <div class="body-content-overlay"></div>
+        <!-- Main chat area -->
+        <section class="chat-app-window">
+  
+          <!-- Active Chat -->
+          <div class="active-chat">
+            <!-- Chat Header -->
+            <div class="chat-navbar">
+              <header class="chat-header">
+                <div class="d-flex align-items-center">
+                  <div class="sidebar-toggle d-block d-lg-none me-1">
+                    <i data-feather="menu" class="font-medium-5"></i>
+                  </div>
+                  <div class="avatar avatar-border user-profile-toggle m-0 me-1">
+                    <img src="../../../app-assets/images/portrait/small/avatar-s-7.jpg" alt="avatar" height="36" width="36" />
+                    <!-- <span class="avatar-status-busy"></span> -->
+                  </div>
+                  <h6 class="mb-0"><%= patientData.firstName %></h6>
+                </div>
+             
+              </header>
+            </div>
+            <!--/ Chat Header -->
+  
+            <!-- User Chat messages -->
+            <div class="user-chats">
+              <div class="chats" id="chat-down">
+
+              </div>
+            </div>
+            <!-- User Chat messages -->
+  
+            <!-- Submit Chat form -->
+            <form class="chat-app-form" action="javascript:void(0);" onsubmit="sendMessage(`${subadminId},${patientId}`)">
+             
+            </form>
+            <!--/ Submit Chat form -->
+          </div>
+          <!--/ Active Chat -->
+        </section>
+        <!--/ Main chat area -->
+  
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.3/socket.io.js"></script>
+  <script>
+    let host_name = window.location.hostname;
+    let url = `http://${host_name}:4060/`
+    let socket = io(url);
+    let subadminId = '<%=adminData._id%>'
+      let patientId = '<%=patientId%>'
+      // console.log("adminId", adminId);
+      let data = {
+        userId: subadminId,
+        type: 1
+      }
+      socket.emit("connect_user", data)
+      socket.on("connect_listener", data => {});
+
+      let getData = {
+        senderId: subadminId,
+        receiverId: patientId
+      }
+      socket.emit("get_messages", getData);
+      scrollToBottom()
+      socket.on("get_messages", result => {
+          for (let i = 0; i < result.getAllOldMessage.length; i++) {
+            let html = ''
+          if (result.getAllOldMessage[i].senderId == subadminId) {
+            html += `
+            <div class="chat">
+                <div class="chat-avatar">
+                    <span class="avatar box-shadow-1 cursor-pointer">
+                      <img src="../../../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="36" width="36" />
+                    </span>
+                </div>
+                <div class="chat-body">
+                    <div class="chat-content">
+                      <p>${result.getAllOldMessage[i].message}</p>
+                    </div>
+                </div>
+            </div>
+            `
+          } else {
+            html += `
+            <div class="chat chat-left">
+                <div class="chat-avatar">
+                    <span class="avatar box-shadow-1 cursor-pointer">
+                      <img src="../../../app-assets/images/portrait/small/avatar-s-7.jpg" alt="avatar" height="36" width="36" />
+                    </span>
+                </div>
+                <div class="chat-body">
+                    <div class="chat-content">
+                      <p>${result.getAllOldMessage[i].message}</p>
+                    </div>
+                </div>
+            </div>
+            `
+          }
+          $(".chats").append(html);
+          // scrollToBottom()
+        }
+        $(".chat-app-form").html(`
+          <div class="input-group input-group-merge me-1 form-send-message" id="sendMsg">
+              <span class="speech-to-text input-group-text"><i data-feather="mic" class="cursor-pointer"></i></span>
+              <input type="text" class="form-control message" id="msgInput" placeholder="Type your message..." />
+              <span class="input-group-text">
+                <label for="attach-doc" class="attachment-icon form-label mb-0">
+                  <i data-feather="image" class="cursor-pointer text-secondary"></i>
+                  <input type="file" id="attach-doc" hidden /> </label></span>
+          </div>
+          <button type="button" class="btn btn-primary send" onclick="sendMessage('${subadminId}','${patientId}')">
+              <i data-feather="send" class="d-lg-none"></i>
+              <span class="d-none d-lg-block">Send</span>
+          </button>
+        `);
+        scrollToBottom()
+      });
+
+      function sendMessage(senderId, receiverId) {
+        // console.log("sendMessage");
+        let msgInputs = document.getElementById("msgInput");
+        msgInput = msgInputs.value;
+
+        if (msgInput.trim() !== '') {
+          data = {
+            receiverId: receiverId != subadminId ? receiverId : senderId,
+            senderId: subadminId,
+            type: 0,
+            message: msgInput
+          };
+          // console.log("Data",data);
+          socket.emit("send_message", data);
+          // document.getElementById("msgInput").value = '';
+
+          msgInputs.value = ''; 
+          appendMessage(subadminId, msgInput);
+          // scrollToBottom()
+          // socket.on("send_message", (response) => {
+          // console.log(response,"resposne");
+          //   // scrollToBottom()
+          //   appendMessage(subadminId, msgInput);
+            
+          // });
+        }
+      }
+      function appendMessage(senderId, message) {
+        let html = `
+            <div class="chat">
+                <div class="chat-avatar">
+                    <span class="avatar box-shadow-1 cursor-pointer">
+                      <img src="../../../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="36" width="36" />
+                    </span>
+                </div>
+                <div class="chat-body">
+                    <div class="chat-content">
+                      <p>${message}</p>
+                    </div>
+                </div>
+            </div>
+            `
+        $(".chats").append(html);
+        scrollToBottom()
+      }
+
+      function scrollToBottom() {
+        $('.user-chats').animate({ scrollTop: 9999 }, 'slow');
+        // var chatBody = document.getElementById('chat-down');
+        // chatBody.scrollTop = chatBody.scrollHeight;
+        // console.log("Scrolled to bottom");
+      }
+
+  </script>

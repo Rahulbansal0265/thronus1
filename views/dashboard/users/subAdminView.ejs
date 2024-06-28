@@ -1,0 +1,158 @@
+<section class="app-user-view">
+  <div class="app-user-view">
+    <div class="user-info-wrapper">
+      <div class="row">
+        <!-- User Card starts-->
+        <div class="col-12">
+          <div class="card user-card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12 d-flex align-items-center justify-content-start">
+                  <button type="button" class="border-0 bg-transparent text-secondary  fs-1" onclick="history.back()"><i class="ph-duotone ph-arrow-circle-left"></i></button><h3 class="card-title mb-0">View</h3>
+                </div>
+                <div class="col-12 col-lg-12 mt-2 mt-xl-0 ms-auto text-start">
+                  
+                </div>
+                <div class="col-xl-6 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                  <div class="user-avatar-section">
+                    <div class="d-flex justify-content-start">
+                      <img class="img-fluid rounded" src="<%= user?.image ? user.image : 'assets/noimages.png' %>" width="150" alt="User avatar">
+                      <div class="d-flex flex-column ms-1">
+                        <div class="user-info mb-1">
+                          <h4 class="mb-0"><%= user.firstName  %> <%= user.lastName  %></h4>
+                          <span class="card-text"><%= user.email%></span>
+                        </div>
+                        <!-- <div class="d-flex flex-wrap">
+                      <a href="./app-user-edit.html" class="btn btn-primary waves-effect waves-float waves-light">Edit</a>
+                      <button class="btn btn-outline-danger ms-1 waves-effect">Delete</button>
+                    </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-12 mt-2 mt-xl-0">
+                  <div class="user-info-wrapper">
+                    <!-- <div class="d-flex flex-wrap">
+                      <div class="user-info-title">
+                        <i class="me-1 fs-4 ph-duotone ph-user"></i>
+                        <span class="card-text user-info-title fw-bold mb-0">Username</span>
+                      </div>
+                      <p class="card-text  mb-0">eleanor.aguilar</p>
+                    </div> -->
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <i class="me-1 fs-4 ph-duotone ph-check-circle"></i>
+                        <span class="card-text user-info-title fw-bold mb-0">Status</span>
+                      </div>
+                      <p class="card-text mb-0"><%= user.status == 1 ? 'Active' : 'InActive'%></p>
+                    </div>
+                    <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <i class="me-1 fs-4 ph-duotone ph-star"></i>
+                        <span class="card-text user-info-title fw-bold mb-0">Role</span>
+                      </div>
+                      <p class="card-text mb-0"><%= user.role == 1 ? 'Doctor' : 'Patient'%></p>
+                    </div>
+                    <!-- <div class="d-flex flex-wrap my-50">
+                      <div class="user-info-title">
+                        <i class="me-1 fs-4 ph-duotone ph-flag"></i>
+                        <span class="card-text user-info-title fw-bold mb-0">Country</span>
+                      </div>
+                      <p class="card-text mb-0">England</p>
+                    </div> -->
+                    <div class="d-flex flex-wrap">
+                      <div class="user-info-title">
+                        <i class="me-1 fs-4 ph-duotone ph-phone"></i>
+                        <span class="card-text user-info-title fw-bold mb-0">Mobile</span>
+                      </div>
+                      <p class="card-text mb-0"><%= user?.countrycode?user?.countrycode:"+1"%><%= user?.phoneNumber%></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 pt-2 text-center">
+                  <a href="/admin/chat/<%= user?._id%>" class="btn btn-primary fs-4 w-auto  "><i class="ph-duotone ph-chat-circle-dots fs-3"></i> Chat with staff</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <section id="card-demo-example">
+          <div class="row match-height">
+
+            <div class="col-md-6 col-lg-6">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Assign Doctor/Patient</h4>
+                  <h6 class="card-subtitle ">Search</h6>
+                  <div class="col-6">
+                    <input class="typeahead" onkeyup="searchUsers()" type="text" id="searchText">
+                  </div>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Bear claw sesame snaps gummies chocolate.</p>
+                  <a href="#" class="card-link">Card link</a>
+                  <a href="#" class="card-link">Another link</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section> -->
+        <!-- /User Card Ends-->
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<script>
+  // $(document).on("change", "#searchText", function() {
+
+
+  function searchUsers() {
+    let val = $("#searchText").val()
+    // console.log("🚀 ~ file: subAdminView.ejs:107 ~ searchUsers ~ val:", val)
+    $.ajax({
+      url: "/admin/get/users",
+      method: "post",
+      data: {
+        text: val
+      },
+      success: function(result) {
+        // console.log("🚀 ~ file: subAdminView.ejs:115 ~ searchUsers ~ result:", result)
+        $("#div1").html(result);
+      }
+
+    })
+  }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+
+<!-- <script type="text/javascript">
+  $(document).ready(function() {
+    $('input.typeahead').typeahead({
+      name: 'typeahead',
+      remote: '/admin/search/users?key=%QUERY',
+      limit: 10
+    });
+  });
+</script> -->
+
+<script type="text/javascript">
+  var path = "/admin/search/users";
+  $('input.typeahead').typeahead({
+    source: function(query, process) {
+      return $.get(path, {
+        query: query
+      }, function(data) {
+        console.log("🚀 ~ file: subAdminView.ejs:147 ~ data:", data)
+        return process(data);
+      });
+    },
+    displayText: function(item) {
+      return item.firstName; // Replace with the actual property you want to display
+    }
+  });
+</script>

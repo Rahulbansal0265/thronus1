@@ -1,0 +1,88 @@
+<section class="app-user-list">
+    <!-- list section start -->
+    <div class="card">
+      <div class="card-header">
+          <h3 class="card-title">Doctors</h3>
+      </div>
+      <div class="card-datatable table-responsive pt-0">
+        <div
+          id="DataTables_Table_0_wrapper"
+          class="dataTables_wrapper dt-bootstrap5 no-footer"
+        >
+          <table
+            class="user-list-table table dataTable no-footer dtr-column"
+            id="myTable"
+            role="grid"
+            aria-describedby="DataTables_Table_0_info"
+          >
+            <thead>
+              <tr>
+                <th>Sr no.</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>phone Number</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% result.forEach((data,i)=>{%>
+              <tr>
+                <td><%= i+1%></td>
+                <td><%= data?.firstName%> </td>
+                <td><%= data?.lastName%></td>
+                <td><%= data?.email%></td>
+                <td><%= data?.countrycode?data?.countrycode:"+1"%> <%= data?.phoneNumber%></td>
+                <td>
+                  <div class="dropdown">
+                    <button
+                      type="button"
+                      class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-more-vertical"
+                      >
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="12" cy="5" r="1"></circle>
+                        <circle cx="12" cy="19" r="1"></circle>
+                      </svg>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a
+                        class="dropdown-item d-flex align-items-center"
+                        href="/subadmin/viewDoctor/<%= data?._id%>"
+                      >
+                        <i class="ph ph-eye me-50"></i>
+                        <span>View</span>
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              
+              <%})%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+    </div>
+    <!-- list section end -->
+  </section>
+  <script>
+    $(document).ready(function () {
+      $("#myTable").DataTable();
+    });
+  </script>
+  

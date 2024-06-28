@@ -1,0 +1,119 @@
+<!-- Main Content -->
+
+<section class="section about-section gray-bg" id="about">
+  <!-- <div class="section-header">
+    <h1>Dashboard</h1>
+    
+  </div>
+   -->
+
+  <div class="app-user-view">
+    <div class="user-info-wrapper">
+      <div class="row">
+        <!-- User Card starts-->
+        <div class="col-lg-8">
+          <div class="card user-card">
+            <div class="card-header">
+              <h2>Profile </h2>
+              <div class="d-flex flex-wrap">
+              <a href="/admin/profileUpdate" class="btn btn-primary waves-effect waves-float waves-light">Edit Profile</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12 mb-2 d-flex flex-column justify-content-between border-container-lg">
+                  <div class="user-avatar-section">
+                    <div class="row w-100 mx-0">
+                      <div class="col-lg-4 col-md-6">
+                        <img class="img-fluid rounded" src="<%= adminData.image ? adminData?.image : '/assets/noimages.png' %>" height="104" width="104" alt="User avatar">
+                      </div>
+                      <div class="col-lg-4 col-md-6">
+                        <div class="d-flex flex-column ms-0">
+                          <div class="user-info mb-1">
+                            <h4 class="mb-0 text-capitalize">
+                              <%= adminData.firstName %>
+                              <%= adminData.lastName %>
+                            </h4>
+                            <span class="card-text">
+                              <%= adminData.email%>
+                            </span>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-lg-12 mt-2 mt-xl-0">
+                  <div class="user-info-wrapper">
+                    <div class="row w-100 mx-0">
+                      <div class="col-lg-4 col-md-6">
+                        <div class="user-info-title">
+                          <i class="me-1 fs-4 ph-duotone ph-user"></i>
+                          <span class="card-text user-info-title fw-bold mb-0"> Name</span>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-6">
+                        <p class="card-text  mb-0 text-capitalize">
+                          <%= adminData.firstName %>
+                          <%= adminData.lastName %>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row w-100 mx-0 mt-50">
+                    <div class="col-lg-4 col-md-6">
+                      <div class="user-info-title">
+                        <i class="me-1 fs-4 ph-duotone ph-star"></i>
+                        <span class="card-text user-info-title fw-bold mb-0">Role</span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                      <p class="card-text mb-0">Admin</p>
+                    </div>
+                  </div>
+                  <div class="row w-100 mx-0 mt-50">
+                    <div class="col-lg-4 col-md-6">
+                      <div class="user-info-title">
+                        <i class="me-1 fs-4 ph-duotone ph-envelope"></i>
+                        <span class="card-text user-info-title fw-bold mb-0">Email</span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                      <p class="card-text mb-0">
+                        <%= adminData.email%>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row w-100 mx-0 mt-50">
+                    <div class="col-lg-4 col-md-6">
+                      <div class="user-info-title">
+                        <i class="me-1 fs-4 ph-duotone ph-phone"></i>
+                        <span class="card-text user-info-title fw-bold mb-0">Phone Number</span>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                      <p class="card-text mb-0">
+                        <%= adminData.phoneNumber%>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /User Card Ends-->
+
+
+    </div>
+  </div>
+</section>
+
+<% if(msg !='' ) { %>
+<script>
+  toastr.success("<%= msg %>")
+</script>
+<% } %>

@@ -1,0 +1,48 @@
+<section class="bs-validation">
+  <div class="row">
+
+    <div class="col-md-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"><%=  typeof data == 'undefined'  ? 'Add' : 'Edit'%> Prescription</h4>
+        </div>
+        <div class="card-body">
+          <form id="jquery-val-form " action="<%=  typeof data == 'undefined'  ? '/doctor/addPrescription' : '/doctor/editPrescription'%>" enctype="multipart/form-data" method="post" novalidate="novalidate">
+            <div class="mb-1">
+              <label class="form-label" for="title">Title</label>
+              <input type="text" class="form-control" id="title" value="<%= typeof data == 'undefined'  ? '' : data.title%>" name="title" placeholder="title">
+            </div>
+            <input type="hidden" name="patientId" value="<%= typeof data == 'undefined'  ? patientId : data?.patientId%>">
+            <input type="hidden" name="id" value="<%= typeof data == 'undefined'  ? '' : data?._id%>">
+
+
+
+
+            <div class="mb-1">
+              <label for="image" class="form-label">File</label>
+              <input class="form-control" type="file" id="productimg" name="image">
+              <img class="my-2 w-50" id="blah" src="<%= typeof data == 'undefined'  ? '/assets/noimages.png' : data?.file%>" alt="">
+            </div>
+
+            <div class="mb-1">
+              <label class="d-block form-label" for="note">note</label>
+              <textarea class="form-control" id="note" name="note" rows="3"><%= typeof data == 'undefined'  ? '' : data?.note%></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary waves-effect waves-float waves-light">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /jQuery Validation -->
+  </div>
+</section>
+
+<script>
+  productimg.onchange = (evt) => {
+    const [file] = productimg.files;
+    if (file) {
+      blah.src = URL.createObjectURL(file);
+    }
+  };
+</script>

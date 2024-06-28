@@ -1,0 +1,86 @@
+<section class="app-user-list">
+
+    <!-- list section start -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Reports</h3>
+      </div>
+      <div class="card-datatable table-responsive pt-0">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+          <table id="myTable" class="display">
+            <thead>
+              <tr>
+                <th>S no.</th>
+                <th>Reported By</th>
+                <th>Reported To</th>
+                <th>description</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <% if(result.length> 0 ){ %>
+              <tbody>
+            <% result.forEach((data,i)=>{%>
+              <tr>
+                <td><%= i+1%></td>
+                <td><%= data?.reportBy?.firstName + ' '+ data?.reportBy?.lastName%></td> 
+                <td><%= data?.reportTo?.firstName + ' '+ data?.reportTo?.lastName%></td> 
+                <td><%=data?.description?data?.description?.replace(/<\/?[^>]+(>|$)/g, "").replace(/&nbsp;/g, " ").substring(0,20) + "...": ''%> </td>
+                <td>
+                    <div class="dropdown">
+                      <button type="button" class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                          <circle cx="12" cy="12" r="1"></circle>
+                          <circle cx="12" cy="5" r="1"></circle>
+                          <circle cx="12" cy="19" r="1"></circle>
+                        </svg>
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item d-flex align-items-center" href="/admin/reportView/<%=data._id%>">
+                          <i class="ph ph-eye me-50"></i>
+                          <span>View</span>
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+               
+              </tr>
+              
+              <%})%>
+            </tbody>
+            <%}else{%>
+            <tr class="odd">
+              <td valign="top" colspan="6" class="dataTables_empty">No data available in
+                table</td>
+            </tr>
+            <%}%>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- list section end -->
+  </section>
+  <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable();
+    });
+  </script>
+  
+    <!-- main content End -->
+    <!-- <script src="../assets/js/myScripts.js"></script> -->
+    <script>
+      imgInp.onchange = (evt) => {
+        const [file] = imgInp.files;
+        if (file) {
+          blah.src = URL.createObjectURL(file);
+        }
+      };
+    </script>
+    <% if(msg !='' ) { %>
+        <script>
+          toastr.success("<%= msg %>")
+        </script>
+    <% } %>
+  
+  
+  
+     

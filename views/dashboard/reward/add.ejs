@@ -1,0 +1,64 @@
+<section class="bs-validation">
+    <div class="row">
+      <div class="col-md-12 col-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Add Reward</h4>
+          </div>
+          <div class="card-body">
+            <form id="jquery-val-form" method="post" enctype="multipart/form-data" action="/admin/addReward">
+              <div class="mb-1">
+                <label class="form-label" for="title">Title</label>
+                <input type="text" class="form-control" id="title" value="" name="title" placeholder="Title">
+              </div>
+              <div class="mb-1">
+                <label for="customFile" class="form-label">Image </label>
+                <input class="form-control" type="file" id="customFile" name="image">
+              </div>
+  
+              <div class="mb-1">
+                <label class="form-label" for="content">Description</label>
+                <textarea class="ckeditor form-control" name="description"></textarea>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary waves-effect waves-float waves-light" style="margin-right: 10px;">Submit</button>
+                <button class="btn btn-secondary" onclick="history.back()">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- /jQuery Validation -->
+    </div>
+  </section>
+  <script>
+    $('#jquery-val-form').validate({
+      rules: {
+        "title": {
+          required: true,
+        },
+        "image": {
+          required: true,
+        },
+        "description": {
+          required: true,
+        }
+      },
+      messages: {
+        "title": {
+          required: "Title field is required",
+          minlength: "Title field must contain at least {0} characters",
+        },
+        "image": {
+          required: "Image field is required",
+          minlength: "Image field must contain at least {0} characters",
+        },
+        "description": {
+          required: "Description field is required",
+          minlength: "Description field must contain at least {0} characters",
+        }
+      },
+    });
+  </script>
+  

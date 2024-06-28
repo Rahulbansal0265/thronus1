@@ -1,0 +1,65 @@
+<section class="section">
+  <div class="section-header">
+    <h1>Add Category</h1>
+  </div>
+  <form method="post" id="categoryAddForm" action="/admin/addCategory" enctype="multipart/form-data">
+    <div class="card-body bg-white rounded-4 shadow">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" class="form-control"/>
+      </div>
+      <!-- <div class="form-group">
+        <label>Image</label>
+        <input type="file" name="image" class="form-control p-2" />
+      </div> -->
+      <!-- <img
+        id="blah"
+        src="/images/userImg/"
+        alt="your image"
+        width="150"
+        height="150"
+      />
+      <label class="control-label col-lg-3"></label>
+      <input accept="image/*" id="productimg" name="image" type="file" /> -->
+      <!-- <div class="form-group">
+        <div class="control-label">Status</div>
+        <label class="custom-switch mt-2">
+          <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input" />
+          <span class="custom-switch-indicator"></span>
+          <span class="custom-switch-description"></span>
+        </label>
+      </div> -->
+      <button type="submit" class="btn btn-primary my-2">Submit</button>
+      <button class="btn btn-secondary" onclick="history.back()">Cancel</button>
+    </div>
+  </form>
+</section>
+
+<script>
+  // imgInp.onchange = (evt) => {
+  //   const [file] = imgInp.files;
+  //   if (file) {
+  //     blah.src = URL.createObjectURL(file);
+  //   }
+  // };
+
+    $('#categoryAddForm').validate({
+      rules: {
+        "name": {
+            required: true,
+        }
+      },
+      messages: {
+        "name": {
+            required: "Category Name field is required",
+            minlength: "Category Name field must contain at least {0} characters",
+        }
+      },
+    //   submitHandler: function (form) { // for demo
+    //         alert('valid form');  // for demo
+    //         return false;  // for demo
+    //     }
+    });
+  
+</script>
+

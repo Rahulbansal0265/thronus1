@@ -1,0 +1,81 @@
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+  <div class="navbar-header">
+    <ul class="nav navbar-nav flex-row">
+      <li class="nav-item me-auto"><a class="navbar-brand" href="/admin/dashboard"><span class="brand-logo"><img src="/assets/logo.png" alt=""></span>
+        </a></li>
+      <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
+    </ul>
+  </div>
+  <div class="shadow-bottom"></div>
+  <div class="main-menu-content">
+    <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+      <li class=" nav-item <%= title === 'dashboard' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/dashboard"><i class="ph-duotone ph-squares-four"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboard</span></a>
+
+      </li>
+      <!-- <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Apps &amp; Pages</span><i data-feather="more-horizontal"></i>
+      </li> -->
+      <li class=" nav-item <%= title === 'Doctors List' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/subAdminList"><i class="ph-duotone ph-first-aid-kit"></i><span class="menu-title text-truncate" data-i18n="Email">SubAdmin</span></a>
+      </li>
+      <li class=" nav-item <%= title === 'Patients List' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/users"><i class="ph-duotone ph-users-four"></i><span class="menu-title text-truncate" data-i18n="Email">Patients</span></a>
+      </li>
+      <li class=" nav-item <%= title === 'doctorsList' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/doctorsList"><i class="ph-duotone ph-stethoscope"></i><span class="menu-title text-truncate" data-i18n="Email">Doctors</span></a>
+      </li>
+      <li class=" nav-item <%= title === 'prescription' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/prescription/0"><i class="ph-duotone ph-prescription"></i><span class="menu-title text-truncate" data-i18n="Email">Prescription</span></a>
+      </li>
+      <!-- <li class=" nav-item <%= title === 'doctorprescription' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/doctorprescription"><i class="ph-duotone ph-prescription"></i><span class="menu-title text-truncate" data-i18n="Email">Doctor Prescription</span></a>
+      </li> -->
+      <li class=" nav-item <%= title === 'invoice' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/invoice"><i class="ph-duotone ph-invoice"></i><span class="menu-title text-truncate" data-i18n="Email">Invoice</span></a>
+      </li>
+      <li class=" nav-item <%= title === 'categories' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/categories"><i class="ph-duotone ph-list-checks"></i><span class="menu-title text-truncate" data-i18n="Email">Categories</span></a>
+      </li>
+      <li class=" nav-item <%= title === 'products' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/products"><i class="ph-duotone ph-pill"></i><span class="menu-title text-truncate" data-i18n="Email">Products</span></a>
+      </li>
+
+
+      <li class=" nav-item <%= title === 'Customer Support' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/support/list"><i class="ph-duotone ph-lifebuoy"></i><span class="menu-title text-truncate" data-i18n="Raise Support">Customers Support</span></a>
+      </li>
+      <!-- <li class=" nav-item <%= title === 'Blocked List' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/blockedList"><i class="ph-duotone ph-lifebuoy"></i><span class="menu-title text-truncate" data-i18n="Raise Support">Blocked Users</span></a>
+      </li> -->
+      <li class="nav-item has-sub <%= title === 'termsAndConditions' || title === 'privacyPolicy'|| title === 'aboutUs'   && titleMain === 'cms' ? 'active' : ''%>" style=""><a class="d-flex align-items-center" href="#"><i class="ph-duotone ph-scroll"></i><span class="menu-title text-truncate" data-i18n="Pages">CMS</span></a>
+        <ul class="menu-content">
+
+          <li class="<%= title === 'termsAndConditions' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/termsAndConditions"><i data-feather='circle'></i><span class="menu-item text-truncate" data-i18n="Knowledge Base">Terms & Conditions</span></a>
+          </li>
+          <li class="<%= title === 'privacyPolicy' ? 'active' : ''%>"><a class=" d-flex align-items-center" href="/admin/privacyPolicy/"><i data-feather='circle'></i><span class="menu-item text-truncate" data-i18n="Pricing">Privacy Policy</span></a>
+          </li>
+          <li class="<%= title === 'aboutUs' ? 'active' : ''%> "> <a class=" d-flex align-items-center" href="/admin/aboutUs"><i data-feather='circle'></i><span class="menu-item text-truncate" data-i18n="Pricing">About Us</span></a>
+          </li>
+
+        </ul>
+      </li>
+      <li class=" nav-item <%= title === 'News List' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/news"><i class="ph-duotone ph-newspaper-clipping"></i><span class="menu-title text-truncate" data-i18n="Raise Support">News</span></a>
+      </li>
+      <li class="nav-item has-sub <%= title === 'Patient Booklet' || title === 'monography'|| title === 'Product Portfolio' || title === 'education' || title === 'tools'   && titleMain === 'tools' ? 'active' : ''%>" style=""><a class="d-flex align-items-center" href="#"><i class="ph-duotone ph-toolbox"></i><span class="menu-title text-truncate" data-i18n="Pages">Tools</span></a>
+        <ul class="menu-content">
+
+          <li class="<%= title === 'Patient Booklet' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/PatientBooklet"><i data-feather='circle'></i><span class="menu-item text-truncate" data-i18n="Knowledge Base">Patient Booklet</span></a>
+          </li>
+          <li class="<%= title === 'monography' ? 'active' : ''%>"><a class=" d-flex align-items-center" href="/admin/monography"><i data-feather='circle'></i><span class="menu-item text-truncate" data-i18n="Pricing">Monography And Practical Guide</span></a>
+          </li>
+          <li class="<%= title === 'education' ? 'active' : ''%> "> <a class=" d-flex align-items-center" href="/admin/education"><i data-feather='circle'></i><span class="menu-item text-truncate" data-i18n="Pricing">Thronus Education</span></a>
+          </li>
+          <li class="<%= title === 'Product Portfolio' ? 'active' : ''%> "> <a class=" d-flex align-items-center" href="/admin/productPortfolio"><i data-feather='circle'></i><span class="menu-item text-truncate" data-i18n="Pricing">Product Portfolio</span></a>
+          </li>
+          <li class="<%= title === 'FAQ' ? 'active' : ''%> "> <a class=" d-flex align-items-center" href="/admin/faq"><i data-feather='circle'></i><span class="menu-item text-truncate" data-i18n="Pricing">Follow up Questionnaire</span></a>
+          </li>
+        </ul>
+      </li>
+      <li class=" nav-item <%= title === 'Reward' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/reward"><i class="ph-duotone ph-exam"></i><span class="menu-title text-truncate" data-i18n="Raise Support">Rewards</span></a>
+      </li>
+      <li class=" nav-item <%= title === 'Report' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/report"><i class="ph-duotone ph-airplay"></i><span class="menu-title text-truncate" data-i18n="Raise Support">Reports</span></a>
+      </li>
+      <li class=" nav-item <%= title === 'message' ? 'active' : ''%>"><a class="d-flex align-items-center" href="/admin/message"><i class="ph-duotone ph-chats"></i><span class="menu-title text-truncate" data-i18n="Raise Support">Chat</span></a>
+      </li>
+
+
+
+    </ul>
+    </li>
+    </ul>
+  </div>
+</div>

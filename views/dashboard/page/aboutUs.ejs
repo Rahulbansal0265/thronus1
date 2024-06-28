@@ -1,0 +1,59 @@
+
+<section class="bs-validation">
+  <div class="row">
+    <div class="col-md-12 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">About Us</h4>
+        </div>
+
+        <div class="card-body">
+          <form id="jquery-val-form" method="post"
+            action="/admin/aboutUs" enctype="multipart/form-data">
+            <div class="mb-1">
+              <label class="form-label" for="title">Title</label>
+              <input type="text" class="form-control" id="title" value="<%= content?.title%>" name="title">
+              <input id="id" type="hidden" class="form-control" name="id" value="3" />
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="content">Description</label>
+              <textarea class="ckeditor form-control" name="content"><%= content?.content %></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary waves-effect waves-float waves-light" name="submit"
+              value="Submit">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /jQuery Validation -->
+  </div>
+</section>
+
+<script>
+  $('#jquery-val-form').validate({
+    rules: {
+      "title": {
+        required: true,
+      },
+      "description": {
+        required: true,
+      }
+    },
+    messages: {
+      "title": {
+        required: "Title field is required",
+        minlength: "Title field must contain at least {0} characters",
+      },
+      "description": {
+        required: "Description field is required",
+        minlength: "Description field must contain at least {0} characters",
+      }
+    },
+  });
+</script>
+
+   <% if(msg !='' ) { %>
+    <script>
+      toastr.success("<%= msg %>")
+    </script>
+  <% } %>

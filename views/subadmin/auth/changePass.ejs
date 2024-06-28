@@ -1,0 +1,142 @@
+<!-- Main Content -->
+
+<div class="section">
+  <div class="section-header">
+    <h1>Change Password</h1>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col-md-12">
+    <div class="card-body bg-white rounded-4 shadow">
+      <form id="jquery-val-form" action="/subadmin/changePassword" method="post" enctype="multipart/form-data">
+        <div class="form-group eye_input">
+          <label class="my-1">Currunt Password</label>
+          <input type="password" id="curruntPass" name="curruntPass" class="form-control" />
+          <i class="far fa-eye-slash" id="togglePassword"></i>
+        </div>
+
+        <div class="form-group eye_input">
+          <label class="my-1">New Password</label>
+          <input type="password" id="newPass" name="newPass" class="form-control" />
+          <i class="far fa-eye-slash" id="togglePassword1" ></i>
+        </div>
+
+        <div class="form-group eye_input">
+          <label class="my-1">Confirm New Password</label>
+          <input type="password" id="confirmNewPass" name="confirmNewPass" class="form-control" />
+          <i class="far fa-eye-slash" id="togglePassword2"></i>
+        </div>
+
+        <button type="submit  " class="btn btn-icon mt-1   icon-left btn-success">
+          <!-- <i class="fas fa-check"></i>  -->
+          Change Password</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- main content End -->
+<script>
+  $('#jquery-val-form').validate({
+    rules: {
+      "curruntPass": {
+          required: true,
+          minlength:5,
+          maxlength:15,
+      },
+      "newPass": {
+          required: true,
+          minlength:5,
+          maxlength:15,
+      },
+      "confirmNewPass": {
+          required: true,
+          minlength:5,
+          maxlength:15,
+          equalTo: "#newPass"
+      }
+    },
+    messages: {
+      "curruntPass": {
+          required: "Current Password field is required",
+          minlength: "Current Password field must contain at least {0} characters",
+          maxlength: "Current Password field must contain at maxximum {15} characters",
+      },
+      "newPass": {
+          required: "New Password field is required",
+          minlength: "New Password field must contain at least {0} characters",
+          maxlength: "New Password field must contain at maxximum {15} characters",
+      },
+      "confirmNewPass": {
+          required: "Confirm Password field is required",
+          minlength: "Confirm Password field must contain at least {0} characters",
+          maxlength: "Confirm Password field must contain at maxximum {15} characters",
+          equalTo: "New Password & Confirm Password does not matched!"
+      }
+    },
+   
+  });
+
+</script>
+
+<script type="text/javascript">
+  const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#curruntPass');
+
+  togglePassword.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    // toggle the eye slash icon
+    // this.classList.toggle('fa-eye-slash');
+    if (type === 'password') {
+      this.classList.remove('fa-eye');
+      this.classList.add('fa-eye-slash');
+    } else {
+      this.classList.remove('fa-eye-slash');
+      this.classList.add('fa-eye');
+    }
+  });
+
+  const togglePassword1 = document.querySelector('#togglePassword1');
+  const password1 = document.querySelector('#newPass');
+
+  togglePassword1.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = password1.getAttribute('type') === 'password' ? 'text' : 'password';
+    password1.setAttribute('type', type);
+    // toggle the eye slash icon
+    // this.classList.toggle('fa-eye-slash');
+    if (type === 'password') {
+      this.classList.remove('fa-eye');
+      this.classList.add('fa-eye-slash');
+    } else {
+      this.classList.remove('fa-eye-slash');
+      this.classList.add('fa-eye');
+    }
+  });
+
+  const togglePassword2 = document.querySelector('#togglePassword2');
+  const password2 = document.querySelector('#confirmNewPass');
+
+  togglePassword2.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = password2.getAttribute('type') === 'password' ? 'text' : 'password';
+    password2.setAttribute('type', type);
+    // toggle the eye slash icon
+    // this.classList.toggle('fa-eye-slash');
+    if (type === 'password') {
+      this.classList.remove('fa-eye');
+      this.classList.add('fa-eye-slash');
+    } else {
+      this.classList.remove('fa-eye-slash');
+      this.classList.add('fa-eye');
+    }
+  });
+  
+</script>
+<% if(msg !='' ) { %>
+  <script>
+    toastr.success("<%= msg %>")
+  </script>
+<% } %>

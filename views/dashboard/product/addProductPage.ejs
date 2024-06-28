@@ -1,0 +1,117 @@
+<section class="bs-validation">
+  <div class="row">
+
+    <div class="col-md-12 col-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Add Product</h4>
+        </div>
+        <div class="card-body">
+          <form id="jquery-val-form" method="post" action="<%= type == 'admin' ?'/admin/addProduct' : '/doctor/addProduct'  %>" enctype="multipart/form-data">
+            <div class="mb-1">
+              <label class="form-label" for="produto">Produto</label>
+              <input type="text" class="form-control" id="produto" value="" name="produto">
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="cbd_mg">CBD mg/ml</label>
+              <input type="text" class="form-control" id="cbd_mg" name="cbd_mg" value="">
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="thc_mg">THC mg/ml</label>
+              <input type="text" id="thc_mg" name="thc_mg" value="" class="form-control">
+            </div>
+            <div class="mb-1">
+              <label class="form-label" for="total_cbd">Total CBD (mg)</label>
+              <input type="text" id="total_cbd" name="total_cbd" value="" class="form-control">
+            </div>
+              <div class="mb-1">
+                <label class="form-label" for="total_thc">Total THC (mg)</label>
+                <input type="text" id="total_thc" name="total_thc" value="" class="form-control">
+              </div>
+              <div class="mb-1">
+                <label class="form-label" for="investimento">Investimento(USD $)</label>
+                <input type="number" id="investimento" name="investimento" value="" class="form-control">
+              </div>
+
+            <div class="mb-1">
+              <label for="customFile" class="form-label">Image </label>
+              <input class="form-control" type="file" id="customFile" name="image" multiple>
+            </div>
+            <button type="submit" class="btn btn-primary waves-effect waves-float waves-light" name="submit" value="Submit">Submit</button>
+            <button class="btn btn-secondary" onclick="history.back()">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /jQuery Validation -->
+  </div>
+</section>
+<script>
+  $('#jquery-val-form').validate({
+    rules: {
+      "title": {
+          required: true,
+      },
+      "manufacturer": {
+          required: true,
+      },
+      "saltComposition": {
+          required: true,
+      },
+      "saltSynonymus": {
+          required: true,
+      },
+      "storage": {
+          required: true,
+      },
+      "description": {
+          required: true,
+      },
+      "image": {
+          required: true,
+      },
+      "price": {
+          required: true,
+      },
+    },
+    messages: {
+      "title": {
+          required: "Title field is required",
+          minlength: "Title field must contain at least {0} characters",
+      },
+      "manufacturer": {
+          required: "Manufacturer field is required",
+          minlength: "Manufacturer field must contain at least {0} characters",
+      },
+      "saltComposition": {
+          required: "Salt Composition field is required",
+          minlength: "Salt Composition field must contain at least {0} characters",
+      },
+      "saltSynonymus": {
+          required: "Salt Synonymus field is required",
+          minlength: "Salt Synonymus field must contain at least {0} characters",
+      },
+      "storage": {
+          required: "Storage field is required",
+          minlength: "Storage field must contain at least {0} characters",
+      },
+      "description": {
+          required: "Description field is required",
+          minlength: "Description field must contain at least {0} characters",
+      },
+      "image": {
+          required: "Image field is required",
+          minlength: "Image field must contain at least {0} characters",
+      },
+      "price": {
+          required: "Price field is required",
+          minlength: "Price field must contain at least {0} characters",
+      },
+    },
+    // submitHandler: function (form) { // for demo
+    //       alert('valid form');  // for demo
+    //       return false;  // for demo
+    //   }
+  });
+
+</script>

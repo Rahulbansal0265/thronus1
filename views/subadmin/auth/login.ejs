@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+  <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+  <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+  <meta name="author" content="PIXINVENT">
+  <title>Geracao Thronus</title>
+  <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
+  <link rel="shortcut icon" type="image/x-icon" href="../../../assets/favIcon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+  <script src="/assets/js/jquery.blockui.js"></script>
+  <!-- BEGIN: Vendor CSS-->
+  <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/vendors.min.css">
+  <!-- END: Vendor CSS-->
+
+  <!-- BEGIN: Theme CSS-->
+  <link rel="stylesheet" type="text/css" href="../../../app-assets/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../../../app-assets/css/bootstrap-extended.css">
+  <link rel="stylesheet" type="text/css" href="../../../app-assets/css/colors.css">
+  <link rel="stylesheet" type="text/css" href="../../../app-assets/css/components.css">
+  <link rel="stylesheet" type="text/css" href="../../../app-assets/css/themes/dark-layout.css">
+  <link rel="stylesheet" type="text/css" href="../../../app-assets/css/themes/bordered-layout.css">
+  <link rel="stylesheet" type="text/css" href="../../../app-assets/css/themes/semi-dark-layout.css">
+
+  <!-- BEGIN: Page CSS-->
+  <link rel="stylesheet" type="text/css" href="../../../app-assets/css/core/menu/menu-types/vertical-menu.css">
+  <link rel="stylesheet" type="text/css" href="../../../app-assets/css/plugins/forms/form-validation.css">
+  <link rel="stylesheet" type="text/css" href="../../../app-assets/css/pages/page-auth.css">
+  <!-- END: Page CSS-->
+
+  <!-- BEGIN: Custom CSS-->
+  <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
+  <!-- END: Custom CSS-->
+
+  <link rel="stylesheet" href="../../../assets/css/iziToast.min.css" />
+
+</head>
+<style>
+  .error {
+    color: #f00;
+    background-color: #fff;
+  }
+
+  body {
+    background: url('/assets/login.jpg') no-repeat center right / cover;
+    position: relative;
+    z-index: 0;
+  }
+
+  body::before {
+    content: '';
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.4;
+  }
+
+  .no_pik {
+    position: relative;
+    z-index: 1;
+  }
+
+  .no_pik img {
+    position: relative;
+    z-index: 0;
+  }
+
+  .no_pik::before {
+    content: '';
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 22;
+  }
+
+  /* .log_background{
+      background: url(../assets/img/background.png) no-repeat center/cover;
+    } */
+</style>
+
+<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
+  <!-- BEGIN: Content-->
+  <div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+      <div class="content-header row">
+      </div>
+      <div class="content-body">
+        <div class="auth-wrapper auth-v1 px-2">
+          <div class="auth-inner py-2">
+            <!-- Login v1 -->
+            <div class="card mb-0 log_card">
+              <div class="card-body">
+                <div class="text-center">
+                  <div class="brand-logo no_pik mb-3 d-inline-block">
+                    <img src="/assets/logo.png" alt="" />
+                  </div>
+                </div>
+
+                <h4 class="card-title mb-1 text-dark text-center">Welcome to  Thronus </h4>
+                <!-- <p class="card-text mb-2">Please sign-in to your account and start the adventure</p> -->
+
+                <!-- <form class="auth-login-form mt-2" action="index.html" method="POST"> -->
+                <div class="mb-1">
+                  <label for="login-email" class="form-label text-dark">Email</label>
+                  <input class="form-control" id="email" type="email" name="email" placeholder="john@example.com" aria-describedby="login-email" tabindex="1" autofocus />
+                  <div style="color: red;" class="email_error_div"></div>
+                </div>
+
+                <div class="mb-1">
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label text-dark" for="login-password">Password</label>
+
+                    </a>
+                  </div>
+                  <div class="input-group input-group-merge form-password-toggle">
+                    <input id="password" type="password" class="form-control form-control-merge" name="password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password" />
+                    <span class="input-group-text cursor-pointer"><i data-feather="eye-off"></i></span>
+                  </div>
+                </div>
+                <!-- <div class="form-group">
+                  <div class="g-recaptcha" id="g-recaptcha-response" data-sitekey="6Lf9wp8hAAAAAL7RNFChSm30HVF6PYC4AMxjDYYI"></div> -->
+                  <!--local    6Lf9wp8hAAAAAL7RNFChSm30HVF6PYC4AMxjDYYI     
+                                  
+                                                      
+                      live        6LeB36shAAAAAOn2sNk3wNpAue9eDbePpW_5Dcey     -->
+
+                  <!-- <span id="captcha_error" style="color: red"></span>
+                </div> -->
+
+                <button onclick="checkCredentials()" class="btn btn-primary w-100" tabindex="4">Sign in</button>
+                <!-- </form> -->
+
+
+
+
+              </div>
+            </div>
+            <!-- /Login v1 -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- END: Content-->
+
+
+  <!-- BEGIN: Vendor JS-->
+  <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
+  <!-- BEGIN Vendor JS-->
+
+  <!-- BEGIN: Page Vendor JS-->
+  <script src="../../../app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
+  <!-- END: Page Vendor JS-->
+
+  <!-- BEGIN: Theme JS-->
+  <script src="../../../app-assets/js/core/app-menu.js"></script>
+  <script src="../../../app-assets/js/core/app.js"></script>
+  <!-- END: Theme JS-->
+
+  <!-- BEGIN: Page JS-->
+  <script src="../../../app-assets/js/scripts/pages/page-auth-login.js"></script>
+  <!-- END: Page JS-->
+
+  <script src="../../../assets/js/iziToast.min.js" type="text/javascript"></script>
+
+  <script>
+    $(window).on('load', function() {
+      if (feather) {
+        feather.replace({
+          width: 14,
+          height: 14
+        });
+      }
+    })
+  </script>
+</body>
+
+</html>
+
+<script>
+  function checkCredentials() {
+    var email = $("#email").val();
+    var password = $("#password").val();
+    // alert(password);
+    var recaptcha = $("#g-recaptcha-response").val();
+    if (!email && !password) {
+      $(".email_error_div").html("Please enter email");
+      $(".password_error_div").html("Please enter password");
+    } else if (!email) {
+      $(".password_error_div").html("");
+      $(".email_error_div").html("Please enter email");
+    } else if (!password) {
+      $(".email_error_div").html("");
+      $(".password_error_div").html("Please enter password");
+    }
+    // else if(!recaptcha){
+    //   event.preventDefault();
+    //   $("#captcha_error").html("Please select recaptcha");
+    // }
+    else {
+      $(".email_error_div").html("");
+      $(".password_error_div").html("");
+      $("#captcha_error").html("");
+
+      $.ajax({
+        url: "/subadmin/login",
+        method: "POST",
+        data: {
+          email: email,
+          password: password
+        },
+        // beforeSend: function(msg) {
+        //   blockUI(".card");
+        // },
+        success: (data) => {
+          // console.log(data,"dataaaaaaaaaaaaaaaa");
+          // unblockUI(".card");
+          if (data == 1) {
+            window.location.href = "/subadmin/dashboard";
+          } else {
+            iziToast.error({
+              title: '',
+              position: 'topRight',
+              message: "Please Enter Valid Details",
+            });
+          }
+        }
+      })
+    }
+  }
+
+  $(document).ready(function() {
+    validateProfileForm();
+  });
+
+
+</script>
